@@ -61,7 +61,7 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at
-[nzimmerman@ocadu.ca](mailto:nzimmerman@ocadu.ca).
+[cli@ocadu.ca](mailto:cli@ocadu.ca).
 
 All complaints will be reviewed and investigated promptly and fairly.
 
