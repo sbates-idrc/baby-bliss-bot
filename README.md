@@ -1,16 +1,15 @@
 # Baby Bliss Bot
 
-An exploratory research to generate new Bliss vocabulary.
+An exploratory research project to generate new Bliss vocabulary using machine learning techniques.
 
-[Bliss language](https://www.blissymbolics.org/) is an Augmentative and Alternative Communication (AAC) language
+[The Bliss language](https://www.blissymbolics.org/) is an Augmentative and Alternative Communication (AAC) language
 used by individuals with severe speech and physical impairments around the world, but also by others for language
 learning and support, or just for the fascination and joy of this unique language representation. It is a semantic
 graphical language that is currently composed of more than 5000 authorized symbols - Bliss-characters and Bliss-words.
 It is a generative language that allows its users to create new Bliss-words as needed.
 
-The generation of new vocabulary situates in the context of an exploratory research that could leverage from emerging
-trends in AI methods and technologies, including the use of Large Language Models (LLM) such as GPT and other models
-for text generation and completion.
+We are exploring the generation of new Bliss vocabulary using emerging AI techniques, including Large Language Models
+(LLM), OCR, Stable Diffusion and other models for text generation and completion.
 
 ## Local Installation
 
@@ -38,7 +37,6 @@ Always activate and use the python virtual environment to maintain an isolated e
 * [Create the virtual environment](https://docs.python.org/3/library/venv.html)
   (one time setup): 
   - `python -m venv .venv` 
-  - Or do this via your IDE, e.g. [Intellij's support for virtualenv](https://www.jetbrains.com/help/idea/creating-virtual-environment.html)
 
 * Activate (every command-line session):
   - Windows: `.\.venv\Scripts\activate`

@@ -19,7 +19,7 @@ involve a number of substantial commits, consider breaking it up into subtasks.
 
 ### Linting
 
-In order to avoid errors and common pitfalls in python language, all code should be regularly checked using the
+In order to avoid errors and common pitfalls in the python language, all code should be regularly checked using the
 provided lint task.
 
 ```bash
@@ -28,10 +28,10 @@ flake8
 
 ### Pull Requests and Merging
 
-If you are starting work on a new feature or bug fix, create a new branch from [dev][dev]:
+If you are starting work on a new feature or bug fix, create a new branch from [main][main]:
 
 ```bash
-git checkout dev
+git checkout main
 git checkout -b your-branch-name
 ```
 
