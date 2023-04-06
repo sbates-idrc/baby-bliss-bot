@@ -28,7 +28,8 @@ flake8
 
 ### Pull Requests and Merging
 
-If you are starting work on a new feature or bug fix, create a new branch from [main][main]:
+If you are starting work on a new feature or bug fix, create a new branch from 
+[main](https://github.com/inclusive-design/baby-bliss-bot):
 
 ```bash
 git checkout main
@@ -42,7 +43,7 @@ Give your branch a descriptive name:
 
 When committing your changes, use [Conventional Commits](https://conventionalcommits.org/).
 
-When your work is complete, open a pull request against the [main][main] branch:
+When your work is complete, open a pull request against the [main](https://github.com/inclusive-design/baby-bliss-bot) branch:
 
 - The title of the pull request is in the format of `<type>: <description> (resolves <issue-id>)`
   - For example, for a new feature that resolves the issue id #1, the title is `feat: description of the feature (resolves #1)`. 

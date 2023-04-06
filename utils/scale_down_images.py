@@ -1,27 +1,37 @@
-"""
-This script resizes JPG and PNG images in a directory to a specified size
-while maintaining their aspect ratios. The resized images are saved in a new
-directory. If the output directory doesn't exist, it will be created.
-
-Usage: python resize_images.py [input_dir] [output_dir] [new_size]
-
-input_dir: The directory where the original images are located.
-output_dir: The directory where the resized images will be saved.
-new_size: The desired size of the resized images, in the format "widthxheight".
-
-Example: python resize_images.py images/ resized_images/ 128x128
-
-Returns: None
-"""
-
 import os
 import sys
 from PIL import Image
 
+"""
+Copyright (c) 2023, Inclusive Design Institute
+
+Licensed under the BSD 3-Clause License. You may not use this file except
+in compliance with this License.
+
+You may obtain a copy of the BSD 3-Clause License at
+https://github.com/inclusive-design/baby-bliss-bot/blob/main/LICENSE
+"""
+
+"""
+This script scales down JPG and PNG images in a directory to a specified size
+while maintaining their aspect ratios. The output images are saved in a new
+directory. If the output directory doesn't exist, it will be created.
+
+Usage: python scale_down_images.py [input_dir] [output_dir] [new_size]
+
+input_dir: The directory where the original images are located.
+output_dir: The directory where the output images will be saved.
+new_size: The desired size of the scaled down images, in the format "widthxheight".
+
+Example: python scale_down_images.py images/ scaled_down_images/ 128x128
+
+Returns: None
+"""
+
 # Check if the correct number of arguments were provided
 if len(sys.argv) != 4:
     print(f"Usage: {sys.argv[0]} input_directory output_directory size")
-    print(f"Example: {sys.argv[0]} images/ resized_images/ 128x128")
+    print(f"Example: {sys.argv[0]} images/ scaled_down_images/ 128x128")
     sys.exit(1)
 
 # Parse the input arguments
@@ -54,13 +64,13 @@ for filename in os.listdir(input_dir):
     # Open the image file
     filepath = os.path.join(input_dir, filename)
     with Image.open(filepath) as img:
-        # Resize the image while maintaining its aspect ratio
+        # Scale down the image while maintaining its aspect ratio
         img.thumbnail((width, height))
 
         # Construct the output filename and path
         output_filename = f"{os.path.splitext(filename)[0]}_{width}x{height}{os.path.splitext(filename)[1]}"
         output_filepath = os.path.join(output_dir, output_filename)
 
-        # Save the resized image to the output directory
+        # Save the output image to the output directory
         img.save(output_filepath)
-        print(f"Resized {filename} to {output_filename}")
+        print(f"Scaled down {filename} to {output_filename}")

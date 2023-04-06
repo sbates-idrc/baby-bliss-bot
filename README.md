@@ -17,8 +17,6 @@ We are exploring the generation of new Bliss vocabulary using emerging AI techni
 
 * [Python 3](https://www.python.org/downloads/)
   * Version 3.9+. On Mac, Homebrew is the easiest way to install.
-* [virtualenv](https://virtualenv.pypa.io/en/latest/) 
-  * Not required, but highly recommended for maintaining an isolated environment for Python and Python packages.
 
 ### Clone the Repository
 
@@ -57,17 +55,17 @@ Run the following command to lint all python scripts:
 
 All utility functions are in `utils` directory.
 
-### Resize images (utils/resize_images.py)
+### Scale down images (utils/scale_down_images.py)
 
-This script resizes JPG and PNG images in a directory to a specified size while maintaining their aspect ratios. 
-The resized images are saved in a new directory. If the output directory doesn't exist, it will be created.
+This script scales down JPG and PNG images in a directory to a specified size while maintaining their aspect ratios. 
+The output images are saved in a new directory. If the output directory doesn't exist, it will be created.
 
-**Usage**: python resize_images.py [input_dir] [output_dir] [new_size]
+**Usage**: python scale_down_images.py [input_dir] [output_dir] [new_size]
 
 *input_dir*: The directory where the original images are located.
-*output_dir*: The directory where the resized images will be saved.
-*new_size*: The desired size of the resized images, in the format "widthxheight".
+*output_dir*: The directory where the output images will be saved.
+*new_size*: The desired size of the scaled down images, in the format "widthxheight".
 
-**Example**: python resize_images.py images/ resized_images/ 128x128
+**Example**: python scale_down_images.py images/ scaled_down_images/ 128x128
 
 **Returns**: None
