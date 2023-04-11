@@ -69,3 +69,9 @@ The output images are saved in a new directory. If the output directory doesn't 
 **Example**: python scale_down_images.py images/ scaled_down_images/ 128x128
 
 **Returns**: None
+
+## Notebooks
+
+[`/notebooks`](./notebooks/) directory contains all notebooks that are used to train or fine-tune various models.
+Each notebook usually comes with a accompanying `dockerfile.yml` to elaborate the environment that the notebook was
+running in.
