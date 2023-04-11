@@ -9,7 +9,7 @@ graphical language that is currently composed of more than 5000 authorized symbo
 It is a generative language that allows its users to create new Bliss-words as needed.
 
 We are exploring the generation of new Bliss vocabulary using emerging AI techniques, including Large Language Models
-(LLM), OCR, Stable Diffusion and other models for text generation and completion.
+(LLM), OCR, and other models for text generation and completion.
 
 ## Local Installation
 
