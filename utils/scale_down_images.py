@@ -30,8 +30,8 @@ Returns: None
 
 # Check if the correct number of arguments were provided
 if len(sys.argv) != 4:
-    print(f"Usage: {sys.argv[0]} input_directory output_directory size")
-    print(f"Example: {sys.argv[0]} images/ scaled_down_images/ 128x128")
+    print(f"Usage: python {sys.argv[0]} input_directory output_directory size")
+    print(f"Example: python {sys.argv[0]} images/ scaled_down_images/ 128x128")
     sys.exit(1)
 
 # Parse the input arguments

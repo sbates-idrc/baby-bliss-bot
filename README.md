@@ -55,6 +55,46 @@ Run the following command to lint all python scripts:
 
 All utility functions are in `utils` directory.
 
+### Get max image dimensions (utils/get_max_dimensions.py)
+
+This script finds the maximum width and maximum height of all PNG and JPG images in a directory,
+along with a list of image filenames that have the maximum width and maximum height.
+It also returns the second maximum width and second maximum height, along with their respective
+lists of image filenames.
+
+**Usage**: python get_max_dimensions.py [image_directory]
+
+*image_directory*: The path to the directory containing the images.
+
+**Example**: python get_max_dimensions.py images/
+
+**Returns**: tuple: A tuple containing:
+* the maximum width (int)
+* maximum height (int)
+* a list of filenames of images with maximum width (list)
+* a list of filenames of images with maximum height (list)
+* the second maximum width (int), the second maximum height (int)
+* a list of filenames of images with the second maximum width (list)
+* a list of filenames of images with the second maximum height (list)
+
+### Sync up image sizes (utils/image_size_sync.py)
+
+This script synchronizes the size of all PNG and JPG files in the input directory. 
+It first finds the maximum dimension (either width or height) among all the input images. 
+Then, it creates a square canvas with the maximum dimension as its width and height. 
+The script copies each input image onto the center of the canvas, without changing the size 
+of the input image. This ensures that each output image has the same maximum dimension and is 
+centered in the canvas. Finally, all output images are saved in the specified output directory.
+
+**Usage**: python image_size_sync.py [input_dir] [output_dir]
+
+*input_dir*: The directory where the original images are located.
+*output_dir*: The directory where the output images will be saved.
+
+**Example**: python image_size_sync.py images/ output/
+
+**Returns**: None
+
 ### Scale down images (utils/scale_down_images.py)
 
 This script scales down JPG and PNG images in a directory to a specified size while maintaining their aspect ratios. 
