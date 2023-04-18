@@ -64,7 +64,7 @@ lists of image filenames.
 
 **Usage**: python get_max_dimensions.py [image_directory]
 
-*image_directory*: The path to the directory containing the images.
+* *image_directory*: The path to the directory containing the images.
 
 **Example**: python get_max_dimensions.py images/
 
@@ -88,8 +88,8 @@ centered in the canvas. Finally, all output images are saved in the specified ou
 
 **Usage**: python image_size_sync.py [input_dir] [output_dir]
 
-*input_dir*: The directory where the original images are located.
-*output_dir*: The directory where the output images will be saved.
+* *input_dir*: The directory where the original images are located.
+* *output_dir*: The directory where the output images will be saved.
 
 **Example**: python image_size_sync.py images/ output/
 
@@ -102,9 +102,9 @@ The output images are saved in a new directory. If the output directory doesn't 
 
 **Usage**: python scale_down_images.py [input_dir] [output_dir] [new_size]
 
-*input_dir*: The directory where the original images are located.
-*output_dir*: The directory where the output images will be saved.
-*new_size*: The desired size of the scaled down images, in the format "widthxheight".
+* *input_dir*: The directory where the original images are located.
+* *output_dir*: The directory where the output images will be saved.
+* *new_size*: The desired size of the scaled down images, in the format "widthxheight".
 
 **Example**: python scale_down_images.py images/ scaled_down_images/ 128x128
 
