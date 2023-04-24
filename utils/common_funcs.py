@@ -12,7 +12,7 @@ def get_max_dimensions(folder_path):
     Parameters:
         folder_path (str): The path to the folder containing the images.
 
-    Returns:
+    Return:
         tuple: A tuple containing:
         * the maximum width (int)
         * maximum height (int)

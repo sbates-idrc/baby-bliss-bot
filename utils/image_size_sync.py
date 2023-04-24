@@ -12,13 +12,13 @@ of the input image. This ensures that each output image has the same maximum dim
 centered in the canvas. Finally, all output images are saved in the specified output directory.
 
 Usage: python image_size_sync.py [input_dir] [output_dir]
-
-input_dir: The directory where the original images are located.
-output_dir: The directory where the output images will be saved.
+Parameters:
+  input_dir: The directory where the original images are located.
+  output_dir: The directory where the output images will be saved.
+Return: None
 
 Example: python image_size_sync.py images/ output/
 
-Returns: None
 """
 
 

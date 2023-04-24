@@ -8,19 +8,18 @@ It also finds the second maximum width and second maximum height, along with the
 lists of image filenames.
 
 Usage: python get_max_dimensions.py [image_directory]
-
-image_directory: The path to the directory containing the images.
+Parameter:
+  image_directory: The path to the directory containing the images.
+Return: tuple: A tuple containing:
+  * the maximum width (int)
+  * maximum height (int)
+  * a list of filenames of images with maximum width (list)
+  * a list of filenames of images with maximum height (list)
+  * the second maximum width (int), the second maximum height (int)
+  * a list of filenames of images with the second maximum width (list)
+  * a list of filenames of images with the second maximum height (list)
 
 Example: python get_max_dimensions.py images/
-
-Returns: tuple: A tuple containing:
-* the maximum width (int)
-* maximum height (int)
-* a list of filenames of images with maximum width (list)
-* a list of filenames of images with maximum height (list)
-* the second maximum width (int), the second maximum height (int)
-* a list of filenames of images with the second maximum width (list)
-* a list of filenames of images with the second maximum height (list)
 """
 
 # Check if the correct number of arguments were provided

@@ -55,6 +55,34 @@ Run the following command to lint all python scripts:
 
 All utility functions are in `utils` directory.
 
+### Get Bliss single characters (utils/get_bliss_single_chars.py)
+
+This script filters out all Bliss single characters from a directory with all Bliss symbols.
+
+**Usage**: python script_name.py [tsv_file_path] [all_bliss_symbol_dir] [target_dir]
+
+* *tsv_file_path*: The path to the .tsv file to be read. This file contains single characters by BCI IDs
+* *all_bliss_symbol_dir*: The path to the directory where all Bliss symbol images are located.
+* *target_dir*: The path to the directory where matched symbol images will be copied to.
+
+**Example**: python get_bliss_single_chars.py ~/Downloads/BCI_single_characters.tsv ~/Downloads/h264-0.666-nogrid-transparent-384dpi-bciid ~/Downloads/bliss_single_chars
+
+**Return**: None
+
+### Resize all images to a same height (utils/resize_images_to_same_height.py)
+
+This script resizes all images in a directory to the same height. The resized images are saved into a target directory.
+
+**Usage**: python resize_images_to_same_height.py [image_dir] [target_height] [target_dir]
+
+* *image_dir*: The directory with all images
+* *target_height*: The target height to resize all images to
+* *target_dir*: The target directory to save resized images
+
+**Example**: python resize_images_to_same_height.py ~/Downloads/bliss_single_chars 216 ~/Downloads/bliss_single_chars_in_height_216
+
+**Return**: None
+
 ### Get max image dimensions (utils/get_max_dimensions.py)
 
 This script finds the maximum width and maximum height of all PNG and JPG images in a directory,
@@ -68,7 +96,7 @@ lists of image filenames.
 
 **Example**: python get_max_dimensions.py images/
 
-**Returns**: tuple: A tuple containing:
+**Return**: tuple: A tuple containing:
 * the maximum width (int)
 * maximum height (int)
 * a list of filenames of images with maximum width (list)
@@ -76,6 +104,27 @@ lists of image filenames.
 * the second maximum width (int), the second maximum height (int)
 * a list of filenames of images with the second maximum width (list)
 * a list of filenames of images with the second maximum height (list)
+
+### Scale down images (utils/scale_down_images.py)
+
+This script scales down JPG and PNG images in a directory to a specified size while maintaining their aspect ratios. 
+The output images are saved in a new directory. If the output directory doesn't exist, it will be created.
+
+**Usage**: python scale_down_images.py [input_dir] [output_dir] [new_size]
+
+* *input_dir*: The directory where the original images are located.
+* *output_dir*: The directory where the output images will be saved.
+* *new_size*: The desired size of the scaled down images, in the format "widthxheight".
+
+**Example**: python scale_down_images.py images/ scaled_down_images/ 128x128
+
+**Return**: None
+
+## Notebooks
+
+[`/notebooks`](./notebooks/) directory contains all notebooks that are used to train or fine-tune various models.
+Each notebook usually comes with a accompanying `dockerfile.yml` to elaborate the environment that the notebook was
+running in.
 
 ### Sync up image sizes (utils/image_size_sync.py)
 
@@ -93,25 +142,4 @@ centered in the canvas. Finally, all output images are saved in the specified ou
 
 **Example**: python image_size_sync.py images/ output/
 
-**Returns**: None
-
-### Scale down images (utils/scale_down_images.py)
-
-This script scales down JPG and PNG images in a directory to a specified size while maintaining their aspect ratios. 
-The output images are saved in a new directory. If the output directory doesn't exist, it will be created.
-
-**Usage**: python scale_down_images.py [input_dir] [output_dir] [new_size]
-
-* *input_dir*: The directory where the original images are located.
-* *output_dir*: The directory where the output images will be saved.
-* *new_size*: The desired size of the scaled down images, in the format "widthxheight".
-
-**Example**: python scale_down_images.py images/ scaled_down_images/ 128x128
-
-**Returns**: None
-
-## Notebooks
-
-[`/notebooks`](./notebooks/) directory contains all notebooks that are used to train or fine-tune various models.
-Each notebook usually comes with a accompanying `dockerfile.yml` to elaborate the environment that the notebook was
-running in.
+**Return**: None

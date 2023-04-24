@@ -18,14 +18,13 @@ while maintaining their aspect ratios. The output images are saved in a new
 directory. If the output directory doesn't exist, it will be created.
 
 Usage: python scale_down_images.py [input_dir] [output_dir] [new_size]
-
-input_dir: The directory where the original images are located.
-output_dir: The directory where the output images will be saved.
-new_size: The desired size of the scaled down images, in the format "widthxheight".
+Parameters:
+  input_dir: The directory where the original images are located.
+  output_dir: The directory where the output images will be saved.
+  new_size: The desired size of the scaled down images, in the format "widthxheight".
+Return: None
 
 Example: python scale_down_images.py images/ scaled_down_images/ 128x128
-
-Returns: None
 """
 
 # Check if the correct number of arguments were provided
