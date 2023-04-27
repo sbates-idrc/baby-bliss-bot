@@ -7,8 +7,9 @@ give us some new bliss shapes, and to give the whole team a feel for what these 
 
 ## Prepare the image set
 
-Goal: The image set contains all Bliss single characters. All images should be cropped or padded out to make a square
-of 256 x 256 with the baseline always in the same position, and the symbol centered horizontally.
+Goal: The image set contains all Bliss single characters. All images need to be transformed to grayscale. They should
+also be cropped or padded out to make a square of 256 x 256 with the baseline always in the same position, and the
+symbol centered horizontally.
 
 Note: The Bliss single character with BCI ID 25600 is missing from the final image set. According to the information
 from [Xelify](https://www.xelify.se/blissfiles/), this character is missing on purpose because it has been decided as
@@ -73,13 +74,14 @@ The list of images with the second max height is:  []
 The verification shows the resizing is correct.
 ```
 
-7. Pad out all images with a transparent background to make a square of 256X256. All images are centred horizontally.
+7. Transform all images to grayscale. Pad out all images with the background in the same background color as the
+grayscaled image to make a square of 256X256. All images are centred horizontally.
 ```
 // Pad out all images
-python image_size_sync.py ~/Downloads/bliss_single_chars_in_height_216 ~/Downloads/bliss_single_chars_final_resized
+python image_size_sync.py ~/Downloads/bliss_single_chars_in_height_216 ~/Downloads/bliss_single_chars_final
 
 // Verify the max dimension of final images
-python get_max_dimensions.py ~/Downloads/bliss_single_chars_final_resized
+python get_max_dimensions.py ~/Downloads/bliss_single_chars_final
 Results:
 The max width is:  256
 The second max width is:  0

@@ -6,10 +6,15 @@ from common_funcs import get_max_dimensions
 """
 This script synchronizes the size of all PNG and JPG files in the input directory.
 It first finds the maximum dimension (either width or height) among all the input images.
-Then, it creates a square canvas with the maximum dimension as its width and height.
-The script copies each input image onto the center of the canvas, without changing the size
-of the input image. This ensures that each output image has the same maximum dimension and is
-centered in the canvas. Finally, all output images are saved in the specified output directory.
+Then it loops through the image directory to perform these operations for every image:
+1. Transform the image to grayscale and find the background color of this image using
+the color code at the pixel (1, 1);
+2. Create a square canvas with the maximum dimension as its width and height. The color of
+the canvas is the background color observed at the previous step;
+3. Copy each input image onto the center of the canvas, without changing the size of the
+input image. This ensures that each output image has the same maximum dimension and is
+centered in the canvas.
+Finally, all output images are saved in the specified output directory.
 
 Usage: python image_size_sync.py [input_dir] [output_dir]
 Parameters:
@@ -43,11 +48,18 @@ def fit_image_to_canvas(img_path, canvas_size, output_img_path):
     # Get the width and height of the input image
     width, height = img.size
 
+    # Transform the input image to grayscale
+    img_gray = img.convert('L')
+
+    # Get the color of the input image at (1, 1). This color is used to create a canvas
+    # with the same background color
+    pixel_color = img_gray.getpixel((1, 1))
+
     # Calculate the size of the output canvas
     canvas_dimension = (canvas_size, canvas_size)
 
     # Create a new transparent canvas of the required size
-    canvas = Image.new('RGBA', canvas_dimension, (0, 0, 0, 0))
+    canvas = Image.new('L', canvas_dimension, pixel_color)
 
     # Calculate the position to paste the input image onto the canvas
     x = int((canvas_size - width) / 2)

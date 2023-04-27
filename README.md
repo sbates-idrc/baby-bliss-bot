@@ -128,12 +128,16 @@ running in.
 
 ### Sync up image sizes (utils/image_size_sync.py)
 
-This script synchronizes the size of all PNG and JPG files in the input directory. 
-It first finds the maximum dimension (either width or height) among all the input images. 
-Then, it creates a square canvas with the maximum dimension as its width and height. 
-The script copies each input image onto the center of the canvas, without changing the size 
-of the input image. This ensures that each output image has the same maximum dimension and is 
-centered in the canvas. Finally, all output images are saved in the specified output directory.
+This script synchronizes the size of all PNG and JPG files in the input directory.
+It first finds the maximum dimension (either width or height) among all the input images.
+Then it loops through the image directory to perform these operations for every image:
+1. Transform the image to grayscale and find the background color of this image using the color code at the pixel
+(1, 1);
+2. Create a square canvas with the maximum dimension as its width and height. The color of the canvas is the background
+color observed at the previous step;
+3. Copy each input image onto the center of the canvas, without changing the size of the input image. This ensures that
+each output image has the same maximum dimension and is centered in the canvas. 
+Finally, all output images are saved in the specified output directory.
 
 **Usage**: python image_size_sync.py [input_dir] [output_dir]
 
