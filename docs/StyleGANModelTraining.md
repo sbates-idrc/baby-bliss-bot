@@ -12,19 +12,19 @@ also be cropped or padded out to make a square of 256 x 256 with the baseline al
 symbol centered horizontally.
 
 Note: The Bliss single character with BCI ID 25600 is missing from the final image set. According to the information
-from [Xelify](https://www.xelify.se/blissfiles/), this character is missing on purpose because it has been decided as
+from [Blissary](https://blissary.com/blissfiles/), this character is missing on purpose because it has been decided as
 part of the work with encoding Blissymbolics into Unicode. This particular character will not be part of Unicode. It's
 because it doesn't stand for a concept, it's just a description of a graphical shape used in the Bliss character for
 squirrel.
 
 ### Steps
 
-1. At [the Xelify Bliss File page](https://www.xelify.se/blissfiles/), download the png package with height 344px,
+Step 1. At [the Bliss File page](https://blissary.com/blissfiles/), download the png package with height 344px,
 transparent background, 384dpi resolution and the naming of BCI ID.
 
-2. Export [the Bliss single character](https://docs.google.com/spreadsheets/d/1t1x1UFuJC1hpjrxdXKi19Tk_Tv-9GVQWSA4sN2FScv4/edit#gid=138588066) spreadsheet as tab separated file.
+Step 2. Export [the Bliss single character](https://docs.google.com/spreadsheets/d/1t1x1UFuJC1hpjrxdXKi19Tk_Tv-9GVQWSA4sN2FScv4/edit#gid=138588066) spreadsheet as tab separated file.
 
-3. Filter out all Bliss single characters from the downloaded png package into a directory.
+Step 3. Filter out all Bliss single characters from the downloaded png package into a directory.
 ```
 cd utils
 
@@ -33,7 +33,7 @@ python get_bliss_single_chars.py ~/Downloads/BCI_single_characters.tsv ~/Downloa
 Error: 25600.png not found in /Users/cindyli/Downloads/h264-0.666-nogrid-transparent-384dpi-bciid
 ```
 
-4. Scan through all single characters to find the maximum dimension.
+Step 4. Scan through all single characters to find the maximum dimension.
 ```
 // Find the maximum dimensions
 python get_max_dimensions.py ~/Downloads/bliss_single_chars
@@ -48,13 +48,13 @@ The second max height is:  0
 The list of images with the second max height is:  []
 ```
 
-5. Resize images with the max width 313px to a width of 256px. Since all resized images need to be in the same height 
+Step 5. Resize images with the max width 313px to a width of 256px. Since all resized images need to be in the same height 
 with the max dimension of 256px, it results in the calculation of the height:
 ```
 max_height = 256 * 264 / 313 = 215.92
 ```
 
-6. Resize all single character images to a height of 216px.
+Step 6. Resize all single character images to a height of 216px.
 ```
 // Resize
 python resize_images_to_same_height.py ~/Downloads/bliss_single_chars 216 ~/Downloads/bliss_single_chars_in_height_216
@@ -74,7 +74,7 @@ The list of images with the second max height is:  []
 The verification shows the resizing is correct.
 ```
 
-7. Transform all images to grayscale. Pad out all images with the background in the same background color as the
+Step 7. Transform all images to grayscale. Pad out all images with the background in the same background color as the
 grayscaled image to make a square of 256X256. All images are centred horizontally.
 ```
 // Pad out all images
@@ -108,7 +108,7 @@ cd stylegan3
 git clone https://github.com/NVlabs/stylegan3
 ```
 
-Step 3. Creating a zip archive of Bliss images will lead to a better performance.
+Step 3. Creating a zip archive of Bliss images will lead to a better performance
 ```
 cd stylegan3
 python dataset_tool.py --source=../bliss_single_chars_final --dest=../datasets/bliss-256x256.zip
