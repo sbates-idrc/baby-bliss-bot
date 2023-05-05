@@ -91,3 +91,53 @@ The list of images with the second max height is:  []
 
 The verification shows the resizing is correct.
 ```
+
+## Train the styleGAN3 model
+
+The styleGAN3 model is trained on [the Cedar platform](https://docs.alliancecan.ca/wiki/Cedar).
+
+### Start the training job
+
+Step 1: Use [`rsync`](https://linuxhandbook.com/transfer-files-ssh/) or other commands to transfer transformed Bliss
+images to Cedar
+
+Step 2. Login to the Cedar and fetch stylegan3 source code
+```
+mkdir stylegan3
+cd stylegan3
+git clone https://github.com/NVlabs/stylegan3
+```
+
+Step 3. Creating a zip archive of Bliss images will lead to a better performance.
+```
+cd stylegan3
+python dataset_tool.py --source=../bliss_single_chars_final --dest=../datasets/bliss-256x256.zip
+```
+
+Step 4: Submit Job
+
+* Copy [requirements.txt](../jobs/stylegan3/requirements.txt) to stylegan3 source code root directory.
+
+* Copy [job_stylegan3.sh](../jobs/stylegan3/job_stylegan3.sh) to the `scratch/' directory in your home directory
+
+* Submit the job
+
+```
+cd ~/scratch
+sbatch job_stylegan3.sh
+```
+
+Use `sq` to check the status of the job. Use `scancel` to cancel a running job.
+
+### The training result
+
+The Bliss images are trained using `stylegan3-r` model (translation and rotation equiv.). The training result can
+be found at [this repository](https://github.com/cindyli/bliss-data/tree/main/styleGAN/styleGAN-training-results/stylegan3-r).
+
+`reals.png` is a collection of real Bliss symobles
+
+`fakes*.png` are random image grids exported from the training loop at regular intervals.
+
+`training_options.json` contains training options used for this round of training.
+
+`metric-fid50k_full.jsonl` logs the result and records` FID evaluated by the training loop for every export.

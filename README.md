@@ -120,12 +120,6 @@ The output images are saved in a new directory. If the output directory doesn't 
 
 **Return**: None
 
-## Notebooks
-
-[`/notebooks`](./notebooks/) directory contains all notebooks that are used to train or fine-tune various models.
-Each notebook usually comes with a accompanying `dockerfile.yml` to elaborate the environment that the notebook was
-running in.
-
 ### Sync up image sizes (utils/image_size_sync.py)
 
 This script synchronizes the size of all PNG and JPG files in the input directory.
@@ -147,3 +141,13 @@ Finally, all output images are saved in the specified output directory.
 **Example**: python image_size_sync.py images/ output/
 
 **Return**: None
+
+## Notebooks
+
+[`/notebooks`](./notebooks/) directory contains all notebooks used for training or fine-tuning various models.
+Each notebook usually comes with a accompanying `dockerfile.yml` to elaborate the environment that the notebook was
+running in.
+
+## Jobs
+
+[`/jobs`](./jobs/) directory contains all jobs used for training or fine-tuning various models.
