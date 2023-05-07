@@ -94,7 +94,8 @@ The verification shows the resizing is correct.
 
 ## Train the styleGAN3 model
 
-The styleGAN3 model is trained on [the Cedar platform](https://docs.alliancecan.ca/wiki/Cedar).
+[The styleGAN3 model](https://github.com/NVlabs/stylegan3) is trained on [the Cedar platform](https://docs.alliancecan.ca/wiki/Cedar). This model supports [three configs](https://github.com/NVlabs/stylegan3/blob/main/docs/configs.md): 
+StyleGAN3-T (translation equiv.), StyleGAN3-R (translation and rotation equiv.), or StyleGAN2.
 
 ### Start the training job
 
@@ -131,8 +132,10 @@ Use `sq` to check the status of the job. Use `scancel` to cancel a running job.
 
 ### The training result
 
-The Bliss images are trained using `stylegan3-r` model (translation and rotation equiv.). The training result can
-be found at [this repository](https://github.com/cindyli/bliss-data/tree/main/styleGAN/styleGAN-training-results/stylegan3-r).
+The Bliss images were first trained using `stylegan3-r` config (translation and rotation equiv.). This job had to be
+cancelled after running 2.5 days because the cluster the job was running on is a shared resource that was waited by
+another team. Before the cancellation, the job had generated some training result that can be found at
+[this repository](https://github.com/cindyli/bliss-data/tree/main/styleGAN/styleGAN-training-results/stylegan3-r).
 
 `reals.png` is a collection of real Bliss symobles
 
