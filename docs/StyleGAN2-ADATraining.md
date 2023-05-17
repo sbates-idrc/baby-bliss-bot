@@ -25,7 +25,7 @@ Note that the `pip install` command uses the `--no-index` flag so as to not sear
 [StyleGAN2]$ pip install --no-index scipy
 ```
 
-A `requirements.txt` file is provided, but for reference only.  It was not used to install the packages but was created after the above commands were all executed to keep of record of the versions of the packages in case StyleGAN2-ADA requires different versions or different packages in the future &mdash; `pip freeze --local > requirements.txt`
+A `requirements.txt` file is provided, but for reference only.  It was not used to install the packages but was created after the above commands were all executed to keep a record of the versions of the packages in case StyleGAN2-ADA requires different versions or different packages in the future &mdash; `pip freeze --local > requirements.txt`
 
 Secondly, clone the StyleGAN2-ADA pytorch source code, also placing it in the `~/BlissStyleGAN/StyleGAN2` directory:
 
@@ -95,9 +95,9 @@ At this point of development, there are some arguments within the `def-styleGAN2
   - If this is the first training run, the `train.py` command has no `--resume` argument.
   - If this is a second, third, etc. run, the `train.py` command has a `--resume` argument that points to the pickle file that contains the latest model from a previous run, e.g.:
 
-        ```
-        --resume="$OUTPUT_DIR/00001-preppedBlissSingleCharGrey-auto1-resumecustom/network-snapshot-000440.pkl"
-        ```
+    ```
+    --resume="$OUTPUT_DIR/00001-preppedBlissSingleCharGrey-auto1-resumecustom/network-snapshot-000440.pkl"
+    ```
 
 To determine the exact name of the latest model file, explore the contents of the latest run subdirectory and find the <em>most recent</em> file with a name like `network-snapshot-000440.pkl`, where the digits differ from training run to training run.
 

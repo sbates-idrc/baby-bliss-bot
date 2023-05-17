@@ -2,7 +2,7 @@
 This contains all jobs used for training or fine-tuning various models.
 
 ## StyleGAN2-ADA
-The [stylegan2-ada](./stylegan2-ada) contains:
+The [stylegan2-ada](./stylegan2-ada) folder contains:
 
    - `def-styleGan2AdaPytorchDataSetupBatch.sh` is the SBatch script for preparing the training dataset for StyleGAN2-ADA.  The script uses the `def-whkchun` cluster.
    - `def-styleGAN2AdaPytorchTrainBatch.sh` is the SBatch script for training. The script uses the `def-whkchun` cluster.
