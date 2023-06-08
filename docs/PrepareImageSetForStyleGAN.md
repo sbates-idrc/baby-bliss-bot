@@ -1,15 +1,16 @@
-# Train StyleGAN model
+# Prepare Image Set For StyleGAN models
 
 [StyleGAN model](https://machinelearningmastery.com/introduction-to-style-generative-adversarial-network-stylegan/) 
-offers control over the style of the generated image. Bliss has 1217 single characters that are used to compose other
-Bliss words. It is interesting to train a StyleGAN model with these single characters to find out if it is useful to
-give us some new bliss shapes, and to give the whole team a feel for what these systems can and cannot do.
+offers control over the style of the generated image. Bliss has 1217 single characters that are used to compose
+Bliss words. It is interesting to train StyleGAN models with these single characters to find out if they are useful to
+give us some new bliss shapes for brainstorming. It will also provide the team a feel for what these systems can and
+cannot do.
 
-## Prepare the image set
-
-Goal: The image set contains all Bliss single characters. All images need to be transformed to grayscale. They should
-also be cropped or padded out to make a square of 256 x 256 with the baseline always in the same position, and the
-symbol centered horizontally.
+The image set should satisfy these conditions:
+1. It contains all Bliss single characters. 
+2. Images need to be transformed to grayscale. 
+3. Images should be cropped or padded out to make a square of 256 x 256 with the baseline always in the same position, 
+and the symbol centered horizontally.
 
 Note: The Bliss single character with BCI ID 25600 is missing from the final image set. According to the information
 from [Blissary](https://blissary.com/blissfiles/), this character is missing on purpose because it has been decided as
@@ -17,7 +18,7 @@ part of the work with encoding Blissymbolics into Unicode. This particular chara
 because it doesn't stand for a concept, it's just a description of a graphical shape used in the Bliss character for
 squirrel.
 
-### Steps
+## Steps
 
 Step 1. At [the Bliss File page](https://blissary.com/blissfiles/), download the png package with height 344px,
 transparent background, 384dpi resolution and the naming of BCI ID.
@@ -91,56 +92,3 @@ The list of images with the second max height is:  []
 
 The verification shows the resizing is correct.
 ```
-
-## Train the styleGAN3 model
-
-[The styleGAN3 model](https://github.com/NVlabs/stylegan3) is trained on [the Cedar platform](https://docs.alliancecan.ca/wiki/Cedar). This model supports [three configs](https://github.com/NVlabs/stylegan3/blob/main/docs/configs.md): 
-StyleGAN3-T (translation equiv.), StyleGAN3-R (translation and rotation equiv.), or StyleGAN2.
-
-### Start the training job
-
-Step 1: Use [`rsync`](https://linuxhandbook.com/transfer-files-ssh/) or other commands to transfer transformed Bliss
-images to Cedar
-
-Step 2. Login to the Cedar and fetch stylegan3 source code
-```
-mkdir stylegan3
-cd stylegan3
-git clone https://github.com/NVlabs/stylegan3
-```
-
-Step 3. Creating a zip archive of Bliss images will lead to a better performance
-```
-cd stylegan3
-python dataset_tool.py --source=../bliss_single_chars_final --dest=../datasets/bliss-256x256.zip
-```
-
-Step 4: Submit Job
-
-* Copy [requirements.txt](../jobs/stylegan3/requirements.txt) to stylegan3 source code root directory.
-
-* Copy [job_stylegan3.sh](../jobs/stylegan3/job_stylegan3.sh) to the `scratch/' directory in your home directory
-
-* Submit the job
-
-```
-cd ~/scratch
-sbatch job_stylegan3.sh
-```
-
-Use `sq` to check the status of the job. Use `scancel` to cancel a running job.
-
-### The training result
-
-The Bliss images were first trained using `stylegan3-r` config (translation and rotation equiv.). This job had to be
-cancelled after running 2.5 days because the cluster the job was running on is a shared resource that was waited by
-another team. Before the cancellation, the job had generated some training result that can be found at
-[this repository](https://github.com/cindyli/bliss-data/tree/main/styleGAN/styleGAN-training-results/stylegan3-r).
-
-`reals.png` is a collection of real Bliss symobles
-
-`fakes*.png` are random image grids exported from the training loop at regular intervals.
-
-`training_options.json` contains training options used for this round of training.
-
-`metric-fid50k_full.jsonl` logs the result and records` FID evaluated by the training loop for every export.

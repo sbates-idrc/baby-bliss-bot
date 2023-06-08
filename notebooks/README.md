@@ -15,3 +15,5 @@ section 1 needs to be filled in before running. If using other platforms, this s
 credential verification for that platform.
 
 `texture_inversion_dockerfile.yml`: the docker environment used for running this training.
+
+**Conclusion**: Texture inversion model is not useful in generating new Bliss symbols for brainstorming.

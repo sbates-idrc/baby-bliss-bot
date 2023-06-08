@@ -51,6 +51,24 @@ Run the following command to lint all python scripts:
 
 * `flake8`
 
+## Model Experiments
+
+We performed experiments with a number of existing models listed below to understand how useful they are in helping
+with generating new Bliss symbols etc.
+
+### StyleGAN3
+
+Conclusion: not useful
+
+Refer to the [documentation](./docs/TrainStyleGAN3MOdel.md) about how to train this model, training results and
+the conclusion about how useful it is.
+
+### Texture Inversion
+
+Concolusion: not useful 
+
+Refer to the [documentation](./notebooks/README.md) for details.
+
 ## Utility Functions
 
 All utility functions are in `utils` directory.
