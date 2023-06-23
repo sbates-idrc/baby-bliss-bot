@@ -48,7 +48,7 @@ Note that there is a bug in the image generation code when using grey-scale imag
     ```
 
 ## Prepare the data
-The set of images used to train the model must be in the correct form for use with StyleGAN2-ADA.  Its `dataset_tool.py` script is used to take a set of images, format, and output them to a directory.  The source images were taken from those created according to the [Prepare Image Set For StyleGAN models](https://github.com/inclusive-design/baby-bliss-bot/blob/main/docs/PrepareImageSetForStyleGAN.md) document.  These were gathered into a tar file and processed by an SBatch shell script to create a tar file of prepared images.  In summary:
+The set of images used to train the model must be in the correct form for use with StyleGAN2-ADA.  Its `dataset_tool.py` script is used to take a set of images, format, and output them to a directory.  The source images were taken from those created according to the [Prepare Image Set For StyleGAN models](./PrepareImageSetForStyleGAN.md) document.  These were gathered into a tar file and processed by an SBatch shell script to create a tar file of prepared images.  In summary:
 
   - Use the `def-styleGAN2AdaPytorchDataSetupBatch.sh` SBatch script to prepare the dataset.
   - The input tar file is named `blissSingleCharsGrey.tar`, in the user's home directory.
