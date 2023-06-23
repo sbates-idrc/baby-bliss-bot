@@ -75,3 +75,6 @@ The output images are saved in a new directory. If the output directory doesn't 
 [`/notebooks`](./notebooks/) directory contains all notebooks that are used to train or fine-tune various models.
 Each notebook usually comes with a accompanying `dockerfile.yml` to elaborate the environment that the notebook was
 running in.
+
+## Jobs
+[`/jobs`](./jobs/) directory contains all jobs used for training or fine-tuning various models.
