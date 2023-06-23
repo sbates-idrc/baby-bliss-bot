@@ -60,7 +60,7 @@ with generating new Bliss symbols etc.
 
 Conclusion: not useful
 
-See the [TrainStyleGAN3MOdel.md](./docs/TrainStyleGAN3MOdel.md) in the [documentation](../docs) folder for details
+See the [TrainStyleGAN3Model.md](./docs/TrainStyleGAN3Model.md) in the [documentation](../docs) folder for details
 on how to train this model, training results and the conclusion about how useful it is.
 
 ### Texture Inversion
