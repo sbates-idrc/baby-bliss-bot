@@ -2,7 +2,7 @@
 
 This directory contains all utility scripts that are used for preparing dataset, training models etc.
 
-## Get Bliss single characters (utils/get_bliss_single_chars.py)
+## Get Bliss single characters (get_bliss_single_chars.py)
 
 This script filters out all Bliss single characters from a directory with all Bliss symbols.
 
@@ -16,7 +16,7 @@ This script filters out all Bliss single characters from a directory with all Bl
 
 **Return**: None
 
-## Resize all images to a same height (utils/resize_images_to_same_height.py)
+## Resize all images to a same height (resize_images_to_same_height.py)
 
 This script resizes all images in a directory to the same height. The resized images are saved into a target directory.
 
@@ -30,7 +30,7 @@ This script resizes all images in a directory to the same height. The resized im
 
 **Return**: None
 
-## Get max image dimensions (utils/get_max_dimensions.py)
+## Get max image dimensions (get_max_dimensions.py)
 
 This script finds the maximum width and maximum height of all PNG and JPG images in a directory,
 along with a list of image filenames that have the maximum width and maximum height.
@@ -52,7 +52,7 @@ lists of image filenames.
 * a list of filenames of images with the second maximum width (list)
 * a list of filenames of images with the second maximum height (list)
 
-## Scale down images (utils/scale_down_images.py)
+## Scale down images (scale_down_images.py)
 
 This script scales down JPG and PNG images in a directory to a specified size while maintaining their aspect ratios. 
 The output images are saved in a new directory. If the output directory doesn't exist, it will be created.
@@ -67,7 +67,7 @@ The output images are saved in a new directory. If the output directory doesn't 
 
 **Return**: None
 
-## Sync up image sizes (utils/image_size_sync.py)
+## Sync up image sizes (image_size_sync.py)
 
 This script synchronizes the size of all PNG and JPG files in the input directory.
 It first finds the maximum dimension (either width or height) among all the input images.
