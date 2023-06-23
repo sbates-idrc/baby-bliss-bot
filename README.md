@@ -51,30 +51,35 @@ Run the following command to lint all python scripts:
 
 * `flake8`
 
-## Utility Functions
+## Model Experiments
 
-All utility functions are in `utils` directory.
+We performed experiments with a number of existing models listed below to understand how useful they are in helping
+with generating new Bliss symbols etc.
 
-### Scale down images (utils/scale_down_images.py)
+### StyleGAN3
 
-This script scales down JPG and PNG images in a directory to a specified size while maintaining their aspect ratios. 
-The output images are saved in a new directory. If the output directory doesn't exist, it will be created.
+Conclusion: not useful
 
-**Usage**: python scale_down_images.py [input_dir] [output_dir] [new_size]
+See the [TrainStyleGAN3Model.md](./docs/TrainStyleGAN3Model.md) in the [documentation](../docs) folder for details
+on how to train this model, training results and the conclusion about how useful it is.
 
-*input_dir*: The directory where the original images are located.
-*output_dir*: The directory where the output images will be saved.
-*new_size*: The desired size of the scaled down images, in the format "widthxheight".
+### Texture Inversion
 
-**Example**: python scale_down_images.py images/ scaled_down_images/ 128x128
+Concolusion: not useful 
 
-**Returns**: None
+See the [Texture Inversion documentation](./notebooks/README.md) for details.
 
 ## Notebooks
 
-[`/notebooks`](./notebooks/) directory contains all notebooks that are used to train or fine-tune various models.
+[`/notebooks`](./notebooks/) directory contains all notebooks used for training or fine-tuning various models.
 Each notebook usually comes with a accompanying `dockerfile.yml` to elaborate the environment that the notebook was
 running in.
 
 ## Jobs
 [`/jobs`](./jobs/) directory contains all jobs used for training or fine-tuning various models.
+
+## Utility Scripts
+
+All utility functions are in the [`utils`](./utils) directory. 
+
+See [README.md](./utils/README.md) in the [`utils`](./utils) directory for details.

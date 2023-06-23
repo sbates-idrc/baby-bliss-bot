@@ -48,7 +48,7 @@ Note that there is a bug in the image generation code when using grey-scale imag
     ```
 
 ## Prepare the data
-The set of images used to train the model must be in the correct form for use with StyleGAN2-ADA.  Its `dataset_tool.py` script is used to take a set of images, format, and output them to a directory.  The source images were taken from those created according to the [Prepare Image Set For StyleGAN models](https://github.com/inclusive-design/baby-bliss-bot/blob/8ff76322918af4b187708cda2a87b8bdb67271b5/docs/PrepareImageSetForStyleGAN.md) document, from [PR #6](https://github.com/inclusive-design/baby-bliss-bot/pull/6). (Aside: As of this writing, 15-Jun-2023, the image preparation documentation is on a branch.  This link needs to update when that branch is merged with main).  These were gathered into a tar file and processed by an SBatch shell script to create a tar file of prepared images.  In summary:
+The set of images used to train the model must be in the correct form for use with StyleGAN2-ADA.  Its `dataset_tool.py` script is used to take a set of images, format, and output them to a directory.  The source images were taken from those created according to the [Prepare Image Set For StyleGAN models](./PrepareImageSetForStyleGAN.md) document.  These were gathered into a tar file and processed by an SBatch shell script to create a tar file of prepared images.  In summary:
 
   - Use the `def-styleGAN2AdaPytorchDataSetupBatch.sh` SBatch script to prepare the dataset.
   - The input tar file is named `blissSingleCharsGrey.tar`, in the user's home directory.
@@ -123,4 +123,3 @@ At this point in development, the SBatch script must be edited by hand to set th
 python ~/BlissStyleGAN/StyleGAN2/stylegan2-ada-pytorch/generate.py \
   --outdir="$OUTPUT_DIR" --trunc=0.5 --seeds=200,330,400 \
   --network="./pytorch-ada-results/00002-preppedBlissSingleCharGrey-auto1-resumecustom/network-snapshot-001640.pkl"
-

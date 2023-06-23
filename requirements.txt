@@ -1,2 +1,4 @@
-Pillow
 flake8
+
+# Used by all image processing scripts
+Pillow
