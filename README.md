@@ -60,12 +60,19 @@ with generating new Bliss symbols etc.
 
 Conclusion: not useful
 
-See the [TrainStyleGAN3Model.md](./docs/TrainStyleGAN3Model.md) in the [documentation](../docs) folder for details
+See the [TrainStyleGAN3Model.md](./docs/TrainStyleGAN3Model.md) in the [documentation](./docs) folder for details
 on how to train this model, training results and the conclusion about how useful it is.
+
+### StyleGAN2-ADA
+
+Conclusion: shows promise
+
+See the [StyleGAN2-ADATraining.md](./docs/StyleGAN2-ADATraining.md) in the [documentation](./docs) folder for details
+on how to train this model and training results.
 
 ### Texture Inversion
 
-Concolusion: not useful 
+Conclusion: not useful 
 
 See the [Texture Inversion documentation](./notebooks/README.md) for details.
 
