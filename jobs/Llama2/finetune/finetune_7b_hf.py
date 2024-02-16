@@ -16,8 +16,8 @@ model_dir = "/home/cindyli/llama2/Llama-2-7b-hf"
 # The instruction dataset to use
 dataset_name = "/home/cindyli/llama2/finetune/bliss.json"
 
-# Output directory where the model predictions and checkpoints will be stored
-output_dir = "/home/cindyli/llama2/results-finetune-7b-hf"
+# Output directory where the model checkpoints will be stored
+output_dir = "/home/cindyli/llama2/finetune/results-finetune-7b-hf"
 
 # Fine-tuned model name
 new_model = "llama-2-7b-hf-bliss"

@@ -18,4 +18,4 @@ source ~/llama2/.venv/bin/activate
 pip list
 
 echo "Llama2 original use from job $SLURM_JOB_ID on nodes $SLURM_JOB_NODELIST."
-python /home/cindyli/llama2/original_use7b_hf.py
+python /home/cindyli/llama2/original_use/original_use_7b_hf.py

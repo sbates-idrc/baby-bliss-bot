@@ -32,7 +32,7 @@ git lfs fetch
 
 ## Use the Llama2 model
 
-In the [`jobs/eval`](../jobs/Llama2/eval) directory, there are two scripts:
+In the [`jobs/original_use`](../jobs/Llama2/original_use) directory, there are two scripts:
 
 * original_use_7b_hf.py: The script that loads the downloaded model and tokenizer to perform text generation,
 word predictions and making inferences
@@ -41,16 +41,16 @@ word predictions and making inferences
 Note that the job script must be copied to the user's `scratch` directory and is submitted from there using
 the `sbatch` command.
 
-FTP scripts above to the cedar cluster in the users `llama2/eval` directory. Run the following command to
+FTP scripts above to the cedar cluster in the users `llama2/original_use` directory. Run the following command to
 submit the job.
 
 ```
-cp llama2/eval/job_original_use_7b_hf.sh scratch/.
+cp llama2/original_use/job_original_use_7b_hf.sh scratch/.
 cd scratch
 sbatch job_original_use_7b_hf.sh
 ```
 
-The result is written to the `llama2/eval/result.txt`.
+The result is written to the `llama2/original_use/result.txt`.
 
 ## Fine-tune the Llama2 model
 
@@ -64,7 +64,7 @@ FTP scripts above to the cedar cluster in the users `llama2/finetune` directory.
 submit the job.
 
 ```
-cp llama2/eval/job_finetune_7b_hf.sh scratch/.
+cp llama2/finetune/job_finetune_7b_hf.sh scratch/.
 cd scratch
 sbatch job_finetune_7b_hf.sh
 ```
