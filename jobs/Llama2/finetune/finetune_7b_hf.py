@@ -1,4 +1,3 @@
-import os
 import torch
 from datasets import load_dataset
 from transformers import (
@@ -6,10 +5,9 @@ from transformers import (
     AutoTokenizer,
     BitsAndBytesConfig,
     TrainingArguments,
-    pipeline,
-    logging,
+    pipeline
 )
-from peft import LoraConfig, PeftModel
+from peft import LoraConfig
 from trl import SFTTrainer
 
 # The local directory with the model and the tokenizer
@@ -120,6 +118,7 @@ packing = False
 # Load the entire model on the GPU 0
 device_map = {"": 0}
 
+
 def create_prompt_formats(sample):
     """
     Creates a formatted prompt template for an entry in the dataset
@@ -147,6 +146,7 @@ def create_prompt_formats(sample):
     sample["text"] = formatted_prompt
 
     return sample
+
 
 # Load tokenizer and model with QLoRA configuration
 compute_dtype = getattr(torch, bnb_4bit_compute_dtype)
@@ -179,7 +179,7 @@ model.config.pretraining_tp = 1
 # Load LLaMA tokenizer
 tokenizer = AutoTokenizer.from_pretrained(model_dir, local_files_only=True, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
-tokenizer.padding_side = "right" # Fix weird overflow issue with fp16 training
+tokenizer.padding_side = "right"   # Fix weird overflow issue with fp16 training
 
 # Preprocess dataset
 print("Preprocessing dataset...")
