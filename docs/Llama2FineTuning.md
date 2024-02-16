@@ -30,6 +30,9 @@ cd Llama-2-7b-hf
 git lfs fetch
 ```
 
+6. Copy the content of [`requirements.txt`](https://github.com/facebookresearch/llama/blob/main/requirements.txt)
+for setting up the Llama2 models into a new file named `requirements-llama2.txt` in the "llama" directory.
+
 ## Use the Llama2 model
 
 In the [`jobs/original_use`](../jobs/Llama2/original_use) directory, there are two scripts:

@@ -22,7 +22,7 @@ predictions = pipe(prompt, max_length=20, num_return_sequences=3)
 # write results into the result file
 file.write("2. Word prediction: \n")
 for prediction in predictions:
-    file.write(f"- {prediction['generated_text']}: {prediction['score']}\n")
+    file.write(f"- {prediction['generated_text']}\n")
 file.write("\n")
 
 # 3. Test prompt for inference
