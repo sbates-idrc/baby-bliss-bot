@@ -8,10 +8,11 @@ from transformers import (
     pipeline
 )
 from peft import LoraConfig
+# from peft import PeftModel
 from trl import SFTTrainer
 
 # The local directory with the model and the tokenizer
-model_dir = "/home/cindyli/llama2/Llama-2-7b-hf"
+model_dir = "/home/cindyli/projects/ctb-whkchun/s2_bliss_LLMs/Llama-2-7b-hf"
 
 # The instruction dataset to use
 dataset_name = "/home/cindyli/llama2/finetune/bliss.json"
@@ -100,7 +101,7 @@ warmup_ratio = 0.03
 group_by_length = True
 
 # Save checkpoint every X updates steps
-save_steps = 0
+save_steps = 25
 
 # Log every X updates steps
 logging_steps = 25
@@ -119,31 +120,15 @@ packing = False
 device_map = {"": 0}
 
 
-def create_prompt_formats(sample):
-    """
-    Creates a formatted prompt template for an entry in the dataset
-
-    :param sample: one dictionary from the dataset
-    """
-
+# Create a formatted prompt template for an entry in the dataset
+def format_prompt(sample):
     # Initialize static strings for the prompt template
-    INTRO_BLURB = "Below is an example that converts an English sentence to a structure in the Bliss language."
-    INPUT_KEY = "Original English sentence:"
-    RESPONSE_KEY = "Sentence in the Bliss language structure:"
+    instruction = "### Instruction: \nConvert the input English sentence to a Bliss sentence.\n\n"
+    input_key = "### Input:\n"
+    response_key = "### Response:\n"
 
-    # Combine a prompt with the static strings
-    blurb = f"{INTRO_BLURB}"
-    input_context = f"{INPUT_KEY}\n{sample['original']}" if sample["original"] else None
-    response = f"{RESPONSE_KEY}\n{sample['bliss']}"
-
-    # Create a list of prompt template elements
-    parts = [part for part in [blurb, input_context, response] if part]
-
-    # Join prompt template elements into a single string to create the prompt template
-    formatted_prompt = "\n\n".join(parts)
-
-    # Store the formatted prompt template in a new key "text"
-    sample["text"] = formatted_prompt
+    # Format the sample
+    sample["text"] = f"{instruction}{input_key}{sample['original']}\n\n{response_key}{sample['bliss']}\n"
 
     return sample
 
@@ -188,7 +173,7 @@ print(f"Number of prompts: {len(dataset)}")
 print(f"Column names are: {dataset.column_names}")
 
 # Convert the data into prompts using the instructional template
-dataset = dataset.map(create_prompt_formats)
+dataset = dataset.map(format_prompt)
 
 print(dataset)
 print(dataset[0])
@@ -205,7 +190,7 @@ peft_config = LoraConfig(
 
 # Set training parameters
 training_arguments = TrainingArguments(
-    output_dir=output_dir,
+    output_dir=f"{output_dir}-{num_train_epochs}epochs",
     num_train_epochs=num_train_epochs,
     per_device_train_batch_size=per_device_train_batch_size,
     gradient_accumulation_steps=gradient_accumulation_steps,
@@ -220,7 +205,8 @@ training_arguments = TrainingArguments(
     max_steps=max_steps,
     warmup_ratio=warmup_ratio,
     group_by_length=group_by_length,
-    lr_scheduler_type=lr_scheduler_type
+    lr_scheduler_type=lr_scheduler_type,
+    report_to="tensorboard"
 )
 
 # Set supervised fine-tuning parameters
@@ -239,12 +225,87 @@ trainer = SFTTrainer(
 trainer.train()
 
 # Save trained model
-trainer.model.save_pretrained(new_model)
+trainer.model.save_pretrained(f"{new_model}-{num_train_epochs}epochs")
 
 print("Done with the fine-tuning.")
 
-# Run text generation pipeline with our next model
-prompt = "Converts this sentence to a structure in the Bliss language: I am a software developer."
-pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=200)
-result = pipe(f"{prompt}")
-print(result[0]['generated_text'])
+# Evaluate the new model
+
+
+# Inference
+def generate_text(instruction, input, model, tokenizer):
+    input_key = "### Input:\n"
+    response_key = "### Response:\n"
+    prompt = f"{instruction}{input_key}{input}\n\n{response_key}\n"
+    input_ids = tokenizer(prompt, return_tensors="pt", truncation=True).input_ids.cuda()
+    outputs = model.generate(input_ids=input_ids, max_new_tokens=100, do_sample=True, top_p=0.9, temperature=0.9)
+    print(f"Instruction: {instruction}\n")
+    print(f"Prompt: {input}\n")
+    print(f"Generated instruction: {tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0][len(prompt):]}\n\n")
+    # pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=400)
+    # pipe_return = pipe(f"<s>[INST] {prompt} [/INST]")
+    # print(f"## Prompt: {prompt}\n## Response:\n{pipe_return[0]['generated_text']}\n\n")
+
+
+# Word predictions
+def predict_words(prompt, model, tokenizer):
+    pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer)
+    predictions = pipe(prompt, max_length=20, num_return_sequences=3)
+
+    # write results into the result file
+    print(f"## Prompt: {prompt}\n## Predictions:\n")
+    for prediction in predictions:
+        print(f"- {prediction['generated_text']}\n")
+    print("\n\n")
+
+
+print("1. Inference\n")
+instruction = "### Instruction: \nConvert the input English sentence to a Bliss sentence.\n\n"
+input = "I am a programmer."
+generate_text(instruction, input, model, tokenizer)
+
+input = "Joe will explore the picturesque landscapes of a charming countryside village tomorrow."
+generate_text(instruction, input, model, tokenizer)
+
+input = "I had the pleasure of watching a captivating movie that thoroughly engaged my senses and emotions, providing a delightful escape into the realm of cinematic storytelling."
+generate_text(instruction, input, model, tokenizer)
+
+instruction = "### Instruction: \nConvert the input Bliss sentence to a English sentence.\n\n"
+input = "past:The girl run in the park."
+generate_text(instruction, input, model, tokenizer)
+
+input = "future:month next, I embark on an journey exciting to explore the cultures vibrant and landscapes breathtaking of Southeast Asia."
+generate_text(instruction, input, model, tokenizer)
+
+print("2. Word Prediction\n\n")
+prompt = "present: Joe be in hospital. He"
+predict_words(prompt, model, tokenizer)
+
+prompt = "Tomorrow will be a beautiful day. Running"
+predict_words(prompt, model, tokenizer)
+
+# Empty VRAM
+del model
+del trainer
+
+# # Merge the adapter weights into the base model then save.
+# # See https://www.philschmid.de/instruction-tune-llama-2
+# # Reload model in FP16 and merge it with LoRA weights
+# base_model = AutoModelForCausalLM.from_pretrained(
+#     model_dir,
+#     local_files_only=True,
+#     low_cpu_mem_usage=True,
+#     return_dict=True,
+#     torch_dtype=torch.float16,
+#     device_map=device_map,
+# )
+# model = PeftModel.from_pretrained(base_model, new_model)
+# model = model.merge_and_unload()
+
+# # Reload tokenizer to save it
+# tokenizer = AutoTokenizer.from_pretrained(model_dir, local_files_only=True, trust_remote_code=True)
+# tokenizer.pad_token = tokenizer.eos_token
+# tokenizer.padding_side = "right"
+
+# model.save_pretrained(f"./{new_model}-{num_train_epochs}epochs")
+# tokenizer.save_pretrained(f"./{new_model}-{num_train_epochs}epochs")
