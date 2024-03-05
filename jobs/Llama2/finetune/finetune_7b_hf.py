@@ -242,9 +242,6 @@ def generate_text(instruction, input, model, tokenizer):
     print(f"Instruction: {instruction}\n")
     print(f"Prompt: {input}\n")
     print(f"Generated instruction: {tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0][len(prompt):]}\n\n")
-    # pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=400)
-    # pipe_return = pipe(f"<s>[INST] {prompt} [/INST]")
-    # print(f"## Prompt: {prompt}\n## Response:\n{pipe_return[0]['generated_text']}\n\n")
 
 
 # Word predictions
@@ -287,25 +284,3 @@ predict_words(prompt, model, tokenizer)
 # Empty VRAM
 del model
 del trainer
-
-# # Merge the adapter weights into the base model then save.
-# # See https://www.philschmid.de/instruction-tune-llama-2
-# # Reload model in FP16 and merge it with LoRA weights
-# base_model = AutoModelForCausalLM.from_pretrained(
-#     model_dir,
-#     local_files_only=True,
-#     low_cpu_mem_usage=True,
-#     return_dict=True,
-#     torch_dtype=torch.float16,
-#     device_map=device_map,
-# )
-# model = PeftModel.from_pretrained(base_model, new_model)
-# model = model.merge_and_unload()
-
-# # Reload tokenizer to save it
-# tokenizer = AutoTokenizer.from_pretrained(model_dir, local_files_only=True, trust_remote_code=True)
-# tokenizer.pad_token = tokenizer.eos_token
-# tokenizer.padding_side = "right"
-
-# model.save_pretrained(f"./{new_model}-{num_train_epochs}epochs")
-# tokenizer.save_pretrained(f"./{new_model}-{num_train_epochs}epochs")
