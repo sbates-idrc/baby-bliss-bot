@@ -1,5 +1,5 @@
 import torch
-from datasets import load_dataset
+from datasets import load_dataset, concatenate_datasets
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
@@ -18,7 +18,7 @@ model_dir = "/home/cindyli/projects/ctb-whkchun/s2_bliss_LLMs/Llama-2-7b-hf"
 dataset_name = "/home/cindyli/llama2/finetune/bliss.json"
 
 # Output directory where the model checkpoints will be stored
-output_dir = "/home/cindyli/llama2/finetune/results-finetune-7b-hf"
+output_dir = "/home/cindyli/projects/ctb-whkchun/s2_bliss/results-finetune-7b-hf"
 
 # Fine-tuned model name
 new_model = "llama-2-7b-hf-bliss"
@@ -121,17 +121,21 @@ device_map = {"": 0}
 
 
 # Create a formatted prompt template for an entry in the dataset
-def format_prompt(sample):
+# The "direction" parameter accepts either "EnglishToBliss" or "BlissToEnglish"
+def format_prompt(sample, direction="EnglishToBliss"):
     # Initialize static strings for the prompt template
-    instruction = "### Instruction: \nConvert the input English sentence to a Bliss sentence.\n\n"
+    instruction = f"### Instruction: \nConvert the input {'English' if direction=='EnglishToBliss' else 'Bliss'} sentence to a {'Bliss' if direction=='EnglishToBliss' else 'English'} sentence.\n\n"
     input_key = "### Input:\n"
     response_key = "### Response:\n"
 
-    # Format the sample
-    sample["text"] = f"{instruction}{input_key}{sample['original']}\n\n{response_key}{sample['bliss']}\n"
+    if direction == "EnglishToBliss":
+        # Format the sample for English to Bliss conversion
+        sample["text"] = f"{instruction}{input_key}{sample['original']}\n\n{response_key}{sample['bliss']}\n"
+    elif direction == "BlissToEnglish":
+        # Format the sample for Bliss to English conversion
+        sample["text"] = f"{instruction}{input_key}{sample['bliss']}\n\n{response_key}{sample['original']}\n"
 
     return sample
-
 
 # Load tokenizer and model with QLoRA configuration
 compute_dtype = getattr(torch, bnb_4bit_compute_dtype)
@@ -168,15 +172,20 @@ tokenizer.padding_side = "right"   # Fix weird overflow issue with fp16 training
 
 # Preprocess dataset
 print("Preprocessing dataset...")
-dataset = load_dataset("json", data_files=dataset_name, split="train")
-print(f"Number of prompts: {len(dataset)}")
-print(f"Column names are: {dataset.column_names}")
+orig_dataset = load_dataset("json", data_files=dataset_name, split="train")
+print(f"Number of prompts: {len(orig_dataset)}")
+print(f"Column names are: {orig_dataset.column_names}")
 
-# Convert the data into prompts using the instructional template
-dataset = dataset.map(format_prompt)
+# Create two datasets for English to Bliss and Bliss to English
+english_to_bliss_dataset = orig_dataset.map(lambda x: format_prompt(x, direction="EnglishToBliss"))
+bliss_to_english_dataset = orig_dataset.map(lambda x: format_prompt(x, direction="BlissToEnglish"))
+
+# Combine the two datasets
+dataset = concatenate_datasets([english_to_bliss_dataset, bliss_to_english_dataset])
 
 print(dataset)
-print(dataset[0])
+print(f"First record: {dataset[0]}")
+print(f"Last record: {dataset[-1]}")
 print("Done with preprocessing dataset.\n\nStart fine-tuning...")
 
 # Load LoRA configuration
