@@ -14,7 +14,7 @@ module load python/3.11.5
 python -V
 
 virtualenv --no-download $SLURM_TMPDIR/env
-source $SLURM_TMPDIR/.env/bin/activate
+source $SLURM_TMPDIR/env/bin/activate
 
 pip install --upgrade pip
 

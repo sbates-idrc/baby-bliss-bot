@@ -111,7 +111,7 @@ logging_steps = 25
 ################################################################################
 
 # Maximum sequence length to use
-max_seq_length = None
+max_seq_length = 4096
 
 # Pack multiple short examples in the same input sequence to increase efficiency
 packing = False
