@@ -1,6 +1,14 @@
 # Experiment with Llama2 model
 
-The experiment leveraged the [7B parameter Llama2 model pretrained by Meta](https://huggingface.co/meta-llama/Llama-2-7b-hf),
+The goal of this experiment is to evaluate how well a large language model (LLM) can learn the conversion
+between English and Blissymbolics sentence structures. To leverage the LLM's knowledge of English, Blissymbolics
+sentences are composed using English words while adhering to the grammatical and syntactical rules of Blissymbolics.
+For instance, the English sentence "I slowly move towards the blue lake" would be expressed in Blissymbolics as
+"present: I move slowly towards lake blue". Without delving into the linguistic intricacies of Blissymbolics, it is
+essential to note that the language follows a specific ordering and structure to indicate verb tenses, as well as the
+relationships between verbs and adverbs, and nouns and adjectives.
+
+The experiment uses the [7B parameter Llama2 model pretrained by Meta](https://huggingface.co/meta-llama/Llama-2-7b-hf),
 converted for the seamless use of the Hugging Face Transformers format. This model is choosen as a starting
 point because it requires less training time and GPU resources compared to its larger counterparts, while it
 potentially sacrifies some capability. Additionally, the Hugging Face Transformers format is selected because
