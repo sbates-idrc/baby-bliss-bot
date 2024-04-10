@@ -27,7 +27,8 @@ to request the access to its Llama2 model;
 mkdir llama2
 cd llama2
 
-// Load git-lfs first for downloading via Git large file storage
+# Load git-lfs first for downloading via Git large file storage
+module load StdEnv/2020
 module load git-lfs/3.3.0
 git lfs install
 
@@ -43,7 +44,7 @@ for setting up the Llama2 models into a new file named `requirements-llama2.txt`
 
 ## Use the Original Llama2 Model
 
-In the [`jobs/original_use`](../jobs/Llama2/original_use) directory, there are two scripts:
+In the [`jobs/Llama2/original_use`](../jobs/Llama2/original_use) directory, there are two scripts:
 
 * original_use_7b_hf.py: The script that loads the downloaded model and tokenizer to perform text generation,
 word predictions and making inferences
@@ -52,8 +53,8 @@ word predictions and making inferences
 Note that the job script must be copied to the user's `scratch` directory and is submitted from there using
 the `sbatch` command.
 
-FTP scripts above to the cedar cluster in the users `llama2/original_use` directory. Run the following command to
-submit the job.
+Use FTP to transfer the above scripts to the cedar cluster in the users `llama2/original_use` directory. Run
+the following command to submit the job.
 
 ```
 cp llama2/original_use/job_original_use_7b_hf.sh scratch/.
@@ -65,14 +66,14 @@ The result is written to the `llama2/original_use/result.txt`.
 
 ## Fine-tune the Llama2 Model
 
-In the [`jobs/finetune`](../jobs/Llama2/finetune) directory, there are these scripts:
+In the [`jobs/Llama2/finetune`](../jobs/Llama2/finetune) directory, there are these scripts:
 
 * bliss.json: The dataset that converts English text to the structure in the Conceptual Bliss
 * finetune_7b_hf.py: The script that fine-tunes the downloaded model
 * job_finetune_7b_hf.sh: The job script submitted to Cedar to run `finetune_7b_hf.py`
 
-FTP scripts above to the cedar cluster in the users `llama2/finetune` directory. Run the following command to
-submit the job.
+Use FTP to transfer the above scripts to the cedar cluster in the users `llama2/finetune` directory. Run
+the following command to submit the job.
 
 ```
 cp llama2/finetune/job_finetune_7b_hf.sh scratch/.
@@ -80,13 +81,12 @@ cd scratch
 sbatch job_finetune_7b_hf.sh
 ```
 
-The fine-tuning script does:
+The fine-tuning script:
 
-1. Create an instruction dataset using `bliss.json`. This dataset contains bi-directional conversion between
+1. Creates an instruction dataset using `bliss.json`. This dataset contains bi-directional conversion between
 English and Conceptual Bliss. 
-2. Use the dataset to fine-tune the Llama2 model. See `finetune_7b_hf.py` about the fine-tuning parameters.
-3. Evaluate the fine-tuned model by giving instructions fine-tuned for, along with a few sentences for language
-conversion.
+2. Uses the dataset to fine-tune the Llama2 model. See `finetune_7b_hf.py` about the fine-tuning parameters.
+3. Evaluates the fine-tuned model by testing a few sentence conversions between the English and the Bliss languages.
 
 Please note that due to the relatively small size of the dataset derived from bliss.json, the fine-tuning script
 was run four times, adjusting the epoch number in the script from 1 to 4. As a result, 4 models were generated
@@ -96,7 +96,7 @@ corresponding to the different epoch counts.
 
 This section describes how to evaluate a fine-tuned model with instructions and input sentences.
 
-In the [`jobs/finetune`](../jobs/Llama2/finetune) directory, there are these scripts:
+In the [`jobs/Llama2/finetune`](../jobs/Llama2/finetune) directory, there are these scripts:
 
 * eval_7b_hf.py: The script that fine-tunes the downloaded model. Common variables to adjust:
   * `model_dir`: The location of the model directory
@@ -104,8 +104,8 @@ In the [`jobs/finetune`](../jobs/Llama2/finetune) directory, there are these scr
   * `input`: At the bottom of the script, define the sentence to be converted
 * job_eval_7b_hf.sh: The job script submitted to Cedar to run `eval_7b_hf.py`
 
-FTP scripts above to the cedar cluster in the users `llama2/finetune` directory. Run the following command to
-submit the job.
+Use FTP to transfer the above scripts to the cedar cluster in the users `llama2/finetune` directory. Run
+the following command to submit the job.
 
 ```
 cp llama2/finetune/job_eval_7b_hf.sh scratch/.
@@ -115,14 +115,14 @@ sbatch job_eval_7b_hf.sh
 
 ## Evaluate the Generated Sentences from the Fine-tuned Model
 
-This section describes how to evaluat the generated sentences and compare them with original or expected sentences.
+This section describes how to evaluate the generated sentences and compare them with original or expected sentences.
 It evaluates the generated sentence in these aspects:
 
 * Semantic Coherence
 * Novelty and Creativity
 * Fluency and Readability
 
-In the [`jobs/finetune`](../jobs/Llama2/finetune) directory, there are these scripts:
+In the [`jobs/Llama2/finetune`](../jobs/Llama2/finetune) directory, there are these scripts:
 
 * eval_generated_sentence.py: The script that fine-tunes the downloaded model. Common variables to adjust:
   * `sentence_orig`: The original sentence
@@ -130,8 +130,8 @@ In the [`jobs/finetune`](../jobs/Llama2/finetune) directory, there are these scr
   * `sentence_generated`: The sentence generated by the fine-tuned model
 * job_eval_generated_sentence.sh: The job script submitted to Cedar to run `eval_generated_sentence.py`
 
-FTP scripts above to the cedar cluster in the users `llama2/finetune` directory. Run the following command to
-submit the job.
+Use FTP to transfer the above scripts to the cedar cluster in the users `llama2/finetune` directory. Run
+the following command to submit the job.
 
 ```
 cp llama2/finetune/job_eval_generated_sentence.sh scratch/.
@@ -146,7 +146,7 @@ and Conceptual Bliss sentence structure, especially with the two-epochs and thre
 
 ## References
 
-[Llama2 in the Facebook Research Github repository](https://github.com/facebookresearch/llama)
-[Llama2 fine-tune, inference examples](https://github.com/facebookresearch/llama-recipes)
-[Llama2 on Hugging Face](https://huggingface.co/docs/transformers/model_doc/llama2)
-[Use Hugging Face Models on Cedar Clusters](https://docs.alliancecan.ca/wiki/Huggingface)
+* [Llama2 in the Facebook Research Github repository](https://github.com/facebookresearch/llama)
+* [Llama2 fine-tune, inference examples](https://github.com/facebookresearch/llama-recipes)
+* [Llama2 on Hugging Face](https://huggingface.co/docs/transformers/model_doc/llama2)
+* [Use Hugging Face Models on Cedar Clusters](https://docs.alliancecan.ca/wiki/Huggingface)

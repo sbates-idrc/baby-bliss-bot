@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (c) 2023, Inclusive Design Institute
+# Copyright (c) 2023-2024, Inclusive Design Institute
 #
 # Licensed under the BSD 3-Clause License. You may not use this file except
 # in compliance with this License.
@@ -39,5 +39,3 @@ mkdir -p "$OUTPUT_DIR"
 
 # Generate...
 python ~/BlissStyleGAN/StyleGAN2/stylegan2-ada-pytorch/generate.py --outdir="$OUTPUT_DIR" --trunc=0.5 --seeds=200,330,400 --network="$MODEL_FILE"
-
-
