@@ -14,6 +14,10 @@ point because it requires less training time and GPU resources compared to its l
 potentially sacrifies some capability. Additionally, the Hugging Face Transformers format is selected because
 of its extensive community support and standardized APIs.
 
+This experiment is performed using Cedar clusters provided by [Digital Research Alliance of Canada](https://alliancecan.ca/en).
+Refer to [its technical documentation](https://docs.alliancecan.ca/wiki/Technical_documentation) regarding the content of
+job scripts and job submission steps described below.
+
 ## Download Llama-2-7b-hf to Cedar
 
 1. Request access to Llama2 models on [the Meta website](https://llama.meta.com/llama-downloads/);
