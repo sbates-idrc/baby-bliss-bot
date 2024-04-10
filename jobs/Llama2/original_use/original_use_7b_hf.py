@@ -8,10 +8,10 @@
 
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 
-model_dir = "/home/cindyli/llama2/Llama-2-7b-hf"
+model_dir = "~/llama2/Llama-2-7b-hf"
 tokenizer = AutoTokenizer.from_pretrained(model_dir, local_files_only=True)
 model = AutoModelForCausalLM.from_pretrained(model_dir, local_files_only=True)
-result_file = "/home/cindyli/llama2/original_use/result.txt"
+result_file = "~/llama2/original_use/result.txt"
 output_file = open(result_file, "w")
 
 

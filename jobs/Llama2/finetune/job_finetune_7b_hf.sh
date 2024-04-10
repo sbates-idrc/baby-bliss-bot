@@ -29,7 +29,7 @@ pip install --upgrade pip
 module load StdEnv/2023 rust/1.70.0 arrow/14.0.1 gcc/12.3
 pip install --no-index transformers==4.36.2 accelerate==0.25.0 peft==0.5.0 bitsandbytes==0.42.0 tensorboard
 pip install datasets==2.17.0 trl
-pip install -r /home/cindyli/llama2/requirements-llama2.txt
+pip install -r ~/llama2/requirements-llama2.txt
 
 echo "=== Fine-tuning Llama2 from job $SLURM_JOB_ID on nodes $SLURM_JOB_NODELIST."
-python /home/cindyli/llama2/finetune/finetune_7b_hf.py
+python ~/llama2/finetune/finetune_7b_hf.py

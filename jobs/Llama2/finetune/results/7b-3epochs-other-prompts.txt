@@ -56,10 +56,14 @@ Requirement already satisfied: mpmath>=0.19 in /home/cindyli/.local/lib/python3.
   _torch_pytree._register_pytree_node(
 /home/cindyli/.local/lib/python3.11/site-packages/transformers/utils/generic.py:309: UserWarning: torch.utils._pytree._register_pytree_node is deprecated. Please use torch.utils._pytree.register_pytree_node instead.
   _torch_pytree._register_pytree_node(
-Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [01:38<01:38, 98.14s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:50<00:00, 47.86s/it]Loading checkpoint shards: 100%|██████████| 2/2 [01:50<00:00, 55.41s/it]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards:  50%|█████     | 1/2 [01:38<01:38, 98.14s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [01:50<00:00, 47.86s/it]
+Loading checkpoint shards: 100%|██████████| 2/2 [01:50<00:00, 55.41s/it]
 Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
 /home/cindyli/.local/lib/python3.11/site-packages/bitsandbytes/nn/modules.py:226: UserWarning: Input type into Linear4bit is torch.float16, but bnb_4bit_compute_dtype=torch.float32 (default). This will lead to slow inference or training speed.
-  warnings.warn(f'Input type into Linear4bit is torch.float16, but bnb_4bit_compute_dtype=torch.float32 (default). This will lead to slow inference or training speed.')
+  warnings.warn(f'Inputtemperature Linear4bit is torch.float16, but bnb_4bit_compute_dtype=torch.float32 (default). This will lead to slow inference or training speed.')
 Prompt: Convert this sentence to a Bliss sentence: He rode his skateboard at the skate park yesterday.
 
 
@@ -70,7 +74,7 @@ Convert this sentence to a Bliss sentence: He went fishing with his dad last wee
 Convert this sentence to a Bliss sentence: She cooked dinner for her family last night.
 
 
-
+temperature
 Prompt: Convert this Bliss sentence to an English sentence: present:They play merrily engage board by games cozy fireplace cozy evening cozy.
 
 
@@ -80,7 +84,7 @@ They play merrily engage board by games cozy cozy fireplace cozy evening cozy.
 They play merrily engage board by games cozy fireplace cozy evening cozy.
 They play merrily engage board by cozy games
 
-
+temperature
 Prompt: Write a Bliss sentence of a greeting.
 
 
@@ -94,7 +98,7 @@ I am grateful for the delicious meal.
 Write a Bliss sentence of gratitude for the beautiful flowers.
 I
 
-
+temperature
 Prompt: Convert this sentence to a Bliss sentence: The Moon takes about one month to orbit Earth.
 
 
@@ -106,7 +110,7 @@ Convert this sentence to a Bliss sentence: I will finish my homework tomorrow.
 Convert this sentence to a Bliss sentence: I will play soccer with my friends tomorrow.
 Convert this sentence to
 
-
+temperature
 Prompt: Convert this sentence to a Bliss sentence: He studied hard because he wanted to go to medical school as he suffered from arthritis.
 
 
@@ -116,7 +120,7 @@ Convert this sentence to a Bliss sentence: He studied hard and succeeded in goin
 Convert this sentence to a Bliss sentence: He will study hard and succeed in going to medical school.
 Convert this sentence to a Bliss sentence: He will study hard and go to medical school
 
-
+temperature
 Prompt: Convert this Bliss sentence to an English sentence: past:he ride excitedly bike shiny new down road day next.
 
 
@@ -126,5 +130,3 @@ They excitedly play basketball at the gym.
 Convert this Bliss sentence to an English sentence: present:She walk excitedly in park day.
 She excitedly walks in the park every day.
 Convert this Bliss sentence to an English sentence: present:They excitedly play s
-
-

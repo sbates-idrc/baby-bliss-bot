@@ -32,4 +32,4 @@ pip install textstat
 python -m spacy download en_core_web_sm
 
 echo "=== Evaluate generated sentences from job $SLURM_JOB_ID on nodes $SLURM_JOB_NODELIST."
-python /home/cindyli/llama2/finetune/eval_generated_sentence.py
+python ~/llama2/finetune/eval_generated_sentence.py

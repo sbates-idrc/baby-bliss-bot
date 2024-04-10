@@ -30,4 +30,4 @@ module load StdEnv/2023 rust/1.70.0 arrow/14.0.1 gcc/12.3
 pip install --no-index torch transformers==4.36.2 peft==0.5.0
 
 echo "=== Fine-tuning Llama2 from job $SLURM_JOB_ID on nodes $SLURM_JOB_NODELIST."
-python /home/cindyli/llama2/finetune/eval_7b_hf.py
+python ~/llama2/finetune/eval_7b_hf.py

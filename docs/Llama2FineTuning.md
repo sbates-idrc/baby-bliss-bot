@@ -150,3 +150,5 @@ and Conceptual Bliss sentence structure, especially with the two-epochs and thre
 * [Llama2 fine-tune, inference examples](https://github.com/facebookresearch/llama-recipes)
 * [Llama2 on Hugging Face](https://huggingface.co/docs/transformers/model_doc/llama2)
 * [Use Hugging Face Models on Cedar Clusters](https://docs.alliancecan.ca/wiki/Huggingface)
+* [Running Jobs](https://docs.alliancecan.ca/wiki/Using_GPUs_with_Slurm)
+* [Request GPUs with Slurm](https://docs.alliancecan.ca/wiki/Using_GPUs_with_Slurm)

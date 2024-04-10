@@ -16,17 +16,16 @@ from transformers import (
     pipeline
 )
 from peft import LoraConfig
-# from peft import PeftModel
 from trl import SFTTrainer
 
 # The local directory with the model and the tokenizer
-model_dir = "/home/cindyli/projects/ctb-whkchun/s2_bliss_LLMs/Llama-2-7b-hf"
+model_dir = "~/projects/ctb-whkchun/s2_bliss_LLMs/Llama-2-7b-hf"
 
 # The instruction dataset to use
-dataset_name = "/home/cindyli/llama2/finetune/bliss.json"
+dataset_name = "~/llama2/finetune/bliss.json"
 
 # Output directory where the model checkpoints will be stored
-output_dir = "/home/cindyli/projects/ctb-whkchun/s2_bliss/results-finetune-7b-hf"
+output_dir = "~/projects/ctb-whkchun/s2_bliss/results-finetune-7b-hf"
 
 # Fine-tuned model name
 new_model = "llama-2-7b-hf-bliss"
@@ -127,12 +126,17 @@ packing = False
 # Load the entire model on the GPU 0
 device_map = {"": 0}
 
+# Static instructions
+instructions_map = {
+    "EnglishToBliss": "### Instruction: \nConvert the input English sentence to a Bliss sentence.\n\n",
+    "BlissToEnglish": "### Instruction: \nConvert the input Bliss sentence to a English sentence.\n\n"
+}
 
 # Create a formatted prompt template for an entry in the dataset
 # The "direction" parameter accepts either "EnglishToBliss" or "BlissToEnglish"
-def format_prompt(sample, direction="EnglishToBliss"):
+def format_prompt(sample, instructions_map, direction="EnglishToBliss"):
     # Initialize static strings for the prompt template
-    instruction = f"### Instruction: \nConvert the input {'English' if direction=='EnglishToBliss' else 'Bliss'} sentence to a {'Bliss' if direction=='EnglishToBliss' else 'English'} sentence.\n\n"
+    instruction = instructions_map[direction]
     input_key = "### Input:\n"
     response_key = "### Response:\n"
 
@@ -186,8 +190,8 @@ print(f"Number of prompts: {len(orig_dataset)}")
 print(f"Column names are: {orig_dataset.column_names}")
 
 # Create two datasets for English to Bliss and Bliss to English
-english_to_bliss_dataset = orig_dataset.map(lambda x: format_prompt(x, direction="EnglishToBliss"))
-bliss_to_english_dataset = orig_dataset.map(lambda x: format_prompt(x, direction="BlissToEnglish"))
+english_to_bliss_dataset = orig_dataset.map(lambda x: format_prompt(x, instructions_map, direction="EnglishToBliss"))
+bliss_to_english_dataset = orig_dataset.map(lambda x: format_prompt(x, instructions_map, direction="BlissToEnglish"))
 
 # Combine the two datasets
 dataset = concatenate_datasets([english_to_bliss_dataset, bliss_to_english_dataset])
@@ -275,7 +279,7 @@ def predict_words(prompt, model, tokenizer):
 
 
 print("1. Inference\n")
-instruction = "### Instruction: \nConvert the input English sentence to a Bliss sentence.\n\n"
+instruction = instructions_map["EnglishToBliss"]
 input = "I am a programmer."
 generate_text(instruction, input, model, tokenizer)
 
@@ -285,7 +289,7 @@ generate_text(instruction, input, model, tokenizer)
 input = "I had the pleasure of watching a captivating movie that thoroughly engaged my senses and emotions, providing a delightful escape into the realm of cinematic storytelling."
 generate_text(instruction, input, model, tokenizer)
 
-instruction = "### Instruction: \nConvert the input Bliss sentence to a English sentence.\n\n"
+instruction = instructions_map["BlissToEnglish"]
 input = "past:The girl run in the park."
 generate_text(instruction, input, model, tokenizer)
 

@@ -10,7 +10,7 @@ import torch
 from peft import AutoPeftModelForCausalLM
 from transformers import AutoTokenizer
 
-model_dir = "/home/cindyli/projects/ctb-whkchun/s2_bliss/results-finetune-7b-hf-3epochs/checkpoint-975"
+model_dir = "~/projects/ctb-whkchun/s2_bliss/results-finetune-7b-hf-3epochs/checkpoint-975"
 
 # load base LLM model and tokenizer
 model = AutoPeftModelForCausalLM.from_pretrained(
@@ -33,14 +33,14 @@ def generate_text_with_instruction(instruction, input, model, tokenizer, tempera
     print(f"Instruction: {instruction}\n")
     print(f"Prompt: {input}\n")
     outputs = model.generate(input_ids=input_ids, max_new_tokens=100, do_sample=True, top_p=0.9, temperature=temperature)
-    print(f"Generated instruction (temprature {temperature}): {tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0][len(prompt):]}\n\n")
+    print(f"Generated instruction (temperature {temperature}): {tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0][len(prompt):]}\n\n")
 
 
 def generate_text_with_prompt(prompt, model, tokenizer, temperature=0.7):
     input_ids = tokenizer(prompt, return_tensors="pt", truncation=True).input_ids.cuda()
     print(f"Prompt: {prompt}\n")
     outputs = model.generate(input_ids=input_ids, max_new_tokens=100, do_sample=True, top_p=0.9, temperature=temperature)
-    print(f"Generated instruction (temprature {temperature}): {tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0][len(prompt):]}\n\n")
+    print(f"Generated instruction (temperature {temperature}): {tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0][len(prompt):]}\n\n")
 
 
 # Test with exactly same instructions used in fine-tuning
@@ -61,7 +61,7 @@ generate_text_with_instruction(instruction, input, model, tokenizer)
 input = "future:month next, I embark on an journey exciting to explore the cultures vibrant and landscapes breathtaking of Southeast Asia."
 generate_text_with_instruction(instruction, input, model, tokenizer)
 
-# Test with random propmts
+# Test with random prompts
 # Two prompts below is copied from the dataset
 prompt = "Convert this sentence to a Bliss sentence: He rode his skateboard at the skate park yesterday.\n"
 generate_text_with_prompt(prompt, model, tokenizer)
