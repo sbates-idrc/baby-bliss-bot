@@ -132,6 +132,7 @@ instructions_map = {
     "BlissToEnglish": "### Instruction: \nConvert the input Bliss sentence to a English sentence.\n\n"
 }
 
+
 # Create a formatted prompt template for an entry in the dataset
 # The "direction" parameter accepts either "EnglishToBliss" or "BlissToEnglish"
 def format_prompt(sample, instructions_map, direction="EnglishToBliss"):
