@@ -15,7 +15,7 @@ potentially sacrifies some capability. Additionally, the Hugging Face Transforme
 of its extensive community support and standardized APIs.
 
 This experiment is performed using Cedar clusters provided by [Digital Research Alliance of Canada](https://alliancecan.ca/en).
-Refer to [its technical documentation](https://docs.alliancecan.ca/wiki/Technical_documentation) regarding the content of
+See [its technical documentation](https://docs.alliancecan.ca/wiki/Technical_documentation) regarding the content of
 job scripts and job submission steps described below.
 
 ## Download Llama-2-7b-hf to Cedar
@@ -142,6 +142,28 @@ cp llama2/finetune/job_eval_generated_sentence.sh scratch/.
 cd scratch
 sbatch job_eval_generated_sentence.sh
 ```
+
+## Future Improvements
+
+## Future Improvements
+
+1. **Diversified Dataset Expansion**: Currently, the `bliss.json` dataset consists of 967 pairs of conversions
+between English and Bliss, focusing on specific ordering and sentence structures. To enhance the model's versatility,
+a key improvement is to enrich the dataset with a wider variety of sentence types and structures.
+
+2. **Comprehensive Model Evaluation**: The evaluation of the fine-tuned model is not comprehensive. While individual
+converted sentences are assessed, there's a need for a more thorough evaluation method. This includes comparing the
+expected and actual converted results using a percentage of the dataset, and assessing for underfitting or overfitting.
+Considering the fine-tuning runs from 1 to 4 epochs on a small dataset, overfitting risks may increase with more
+epochs, which reqires a robust evaluation process.
+
+3. **Understanding Bliss Language**: The current fine-tuned model effectively responds to two fixed instructions,
+converting between English and Bliss. However, it lacks a deep understanding of the Bliss language itself. The next
+step involves fine-tuning a model that comprehends broader queries in Bliss, going beyond instructional conversion
+tasks. Tests show that while the model performs well in converting Bliss to English, likely because of its extensive
+knowledge of English. However, its performance in the reverse direction is not ideal. This difference suggests a need
+for additional fine-tuning, potentially by enhancing the model's understanding of the unique linguistic features of
+Bliss.
 
 ## Conclusion
 
