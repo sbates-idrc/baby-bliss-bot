@@ -145,8 +145,6 @@ sbatch job_eval_generated_sentence.sh
 
 ## Future Improvements
 
-## Future Improvements
-
 1. **Diversified Dataset Expansion**: Currently, the `bliss.json` dataset consists of 967 pairs of conversions
 between English and Bliss, focusing on specific ordering and sentence structures. To enhance the model's versatility,
 a key improvement is to enrich the dataset with a wider variety of sentence types and structures.
