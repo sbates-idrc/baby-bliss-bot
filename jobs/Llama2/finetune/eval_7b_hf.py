@@ -46,7 +46,6 @@ def generate_text_with_prompt(prompt, model, tokenizer, temperature=0.7):
 
 
 # Test with exactly same instructions used in fine-tuning
-instruction = "### Instruction: \nConvert the input English sentence to a Bliss sentence.\n\n"
 input = "I am a programmer."
 generate_text_with_instruction(instructions_map["EnglishToBliss"], input, model, tokenizer)
 
