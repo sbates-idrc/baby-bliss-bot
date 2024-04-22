@@ -6,11 +6,13 @@
 # You may obtain a copy of the BSD 3-Clause License at
 # https://github.com/inclusive-design/baby-bliss-bot/blob/main/LICENSE
 
+import os
 import torch
 from peft import AutoPeftModelForCausalLM
 from transformers import AutoTokenizer
+from shared_data import instructions_map
 
-model_dir = "~/projects/ctb-whkchun/s2_bliss/results-finetune-7b-hf-3epochs/checkpoint-975"
+model_dir = os.path.expanduser("~") + "/projects/ctb-whkchun/s2_bliss/results-finetune-7b-hf-3epochs/checkpoint-975"
 
 # load base LLM model and tokenizer
 model = AutoPeftModelForCausalLM.from_pretrained(
@@ -46,20 +48,19 @@ def generate_text_with_prompt(prompt, model, tokenizer, temperature=0.7):
 # Test with exactly same instructions used in fine-tuning
 instruction = "### Instruction: \nConvert the input English sentence to a Bliss sentence.\n\n"
 input = "I am a programmer."
-generate_text_with_instruction(instruction, input, model, tokenizer)
+generate_text_with_instruction(instructions_map["EnglishToBliss"], input, model, tokenizer)
 
 input = "Joe will explore the picturesque landscapes of a charming countryside village tomorrow."
-generate_text_with_instruction(instruction, input, model, tokenizer)
+generate_text_with_instruction(instructions_map["EnglishToBliss"], input, model, tokenizer)
 
 input = "I had the pleasure of watching a captivating movie that thoroughly engaged my senses and emotions, providing a delightful escape into the realm of cinematic storytelling."
-generate_text_with_instruction(instruction, input, model, tokenizer)
+generate_text_with_instruction(instructions_map["EnglishToBliss"], input, model, tokenizer)
 
-instruction = "### Instruction: \nConvert the input Bliss sentence to a English sentence.\n\n"
 input = "past:The girl run in the park."
-generate_text_with_instruction(instruction, input, model, tokenizer)
+generate_text_with_instruction(instructions_map["BlissToEnglish"], input, model, tokenizer)
 
 input = "future:month next, I embark on an journey exciting to explore the cultures vibrant and landscapes breathtaking of Southeast Asia."
-generate_text_with_instruction(instruction, input, model, tokenizer)
+generate_text_with_instruction(instructions_map["BlissToEnglish"], input, model, tokenizer)
 
 # Test with random prompts
 # Two prompts below is copied from the dataset

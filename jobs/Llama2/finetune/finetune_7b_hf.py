@@ -6,6 +6,7 @@
 # You may obtain a copy of the BSD 3-Clause License at
 # https://github.com/inclusive-design/baby-bliss-bot/blob/main/LICENSE
 
+import os
 import torch
 from datasets import load_dataset, concatenate_datasets
 from transformers import (
@@ -17,15 +18,16 @@ from transformers import (
 )
 from peft import LoraConfig
 from trl import SFTTrainer
+from shared_data import instructions_map
 
 # The local directory with the model and the tokenizer
-model_dir = "~/projects/ctb-whkchun/s2_bliss_LLMs/Llama-2-7b-hf"
+model_dir = os.path.expanduser("~") + "/projects/ctb-whkchun/s2_bliss_LLMs/Llama-2-7b-hf"
 
 # The instruction dataset to use
-dataset_name = "~/llama2/finetune/bliss.json"
+dataset_name = os.path.expanduser("~") + "/llama2/finetune/bliss.json"
 
 # Output directory where the model checkpoints will be stored
-output_dir = "~/projects/ctb-whkchun/s2_bliss/results-finetune-7b-hf"
+output_dir = os.path.expanduser("~") + "/projects/ctb-whkchun/s2_bliss/results-finetune-7b-hf"
 
 # Fine-tuned model name
 new_model = "llama-2-7b-hf-bliss"
@@ -125,12 +127,6 @@ packing = False
 
 # Load the entire model on the GPU 0
 device_map = {"": 0}
-
-# Static instructions
-instructions_map = {
-    "EnglishToBliss": "### Instruction: \nConvert the input English sentence to a Bliss sentence.\n\n",
-    "BlissToEnglish": "### Instruction: \nConvert the input Bliss sentence to a English sentence.\n\n"
-}
 
 
 # Create a formatted prompt template for an entry in the dataset
