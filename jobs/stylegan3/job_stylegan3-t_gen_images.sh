@@ -1,4 +1,13 @@
 #!/bin/bash
+
+# Copyright (c) 2023-2024, Inclusive Design Institute
+#
+# Licensed under the BSD 3-Clause License. You may not use this file except
+# in compliance with this License.
+#
+# You may obtain a copy of the BSD 3-Clause License at
+# https://github.com/inclusive-design/baby-bliss-bot/blob/main/LICENSE
+
 #SBATCH --job-name=stylegan3-t-gen-images
 #SBATCH --time 10-00:00
 #SBATCH --nodes=1
@@ -27,11 +36,11 @@ echo "Start to check gcc version"
 which gcc
 echo "End of checking gcc version"
 
-pip install -r /home/cindyli/stylegan3/stylegan3/requirements.txt
+pip install -r ~/stylegan3/stylegan3/requirements.txt
 
 pip list
 
 export CUDA_LAUNCH_BLOCKING=1
 
 echo "Hello from job $SLURM_JOB_ID on nodes $SLURM_JOB_NODELIST."
-python /home/cindyli/stylegan3/stylegan3/gen_images.py --outdir=/home/cindyli/stylegan3/out-stylegan3-t --trunc=1 --seeds=2 --network=/home/cindyli/stylegan3/training-runs/00016-stylegan3-t-bliss-256x256-gpus1-batch32-gamma2/network-snapshot-004160.pkl
+python ~/stylegan3/stylegan3/gen_images.py --outdir=~/stylegan3/out-stylegan3-t --trunc=1 --seeds=2 --network=~/stylegan3/training-runs/00016-stylegan3-t-bliss-256x256-gpus1-batch32-gamma2/network-snapshot-004160.pkl

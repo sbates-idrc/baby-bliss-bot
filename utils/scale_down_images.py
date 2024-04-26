@@ -3,7 +3,7 @@ import sys
 from PIL import Image
 
 """
-Copyright (c) 2023, Inclusive Design Institute
+Copyright (c) 2023-2024, Inclusive Design Institute
 
 Licensed under the BSD 3-Clause License. You may not use this file except
 in compliance with this License.

@@ -1,4 +1,13 @@
 #!/bin/bash
+
+# Copyright (c) 2023-2024, Inclusive Design Institute
+#
+# Licensed under the BSD 3-Clause License. You may not use this file except
+# in compliance with this License.
+#
+# You may obtain a copy of the BSD 3-Clause License at
+# https://github.com/inclusive-design/baby-bliss-bot/blob/main/LICENSE
+
 #SBATCH --job-name=stylegan3
 #SBATCH --time 24-00:00
 #SBATCH --nodes=1
@@ -25,7 +34,7 @@ nvcc -V
 # Check gcc version
 which gcc
 
-pip install -r /home/cindyli/stylegan3/stylegan3/requirements.txt
+pip install -r ~/stylegan3/stylegan3/requirements.txt
 
 # Check the install packages
 pip list
@@ -34,4 +43,4 @@ export CUDA_LAUNCH_BLOCKING=1
 
 echo "Hello from job $SLURM_JOB_ID on nodes $SLURM_JOB_NODELIST."
 # nvidia-smi
-python /home/cindyli/stylegan3/stylegan3/train.py --outdir=/home/cindyli/stylegan3/training-runs --cfg=stylegan3-r --data=/home/cindyli/stylegan3/datasets/bliss-256x256.zip --gpus=1 --batch=32 --gamma=2 --batch-gpu=8 --snap=10
+python ~/stylegan3/stylegan3/train.py --outdir=~/stylegan3/training-runs --cfg=stylegan3-r --data=~/stylegan3/datasets/bliss-256x256.zip --gpus=1 --batch=32 --gamma=2 --batch-gpu=8 --snap=10

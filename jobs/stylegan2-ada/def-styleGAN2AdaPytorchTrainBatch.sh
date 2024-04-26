@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (c) 2023, Inclusive Design Institute
+# Copyright (c) 2023-2024, Inclusive Design Institute
 #
 # Licensed under the BSD 3-Clause License. You may not use this file except
 # in compliance with this License.
@@ -58,4 +58,3 @@ python ~/BlissStyleGAN/StyleGAN2/stylegan2-ada-pytorch/train.py --outdir="$OUTPU
 # This third command is resuming for another 15 hours, using latest model.
 # Again, the actual values here may differ for different groups of runs.
 # python ~/BlissStyleGAN/StyleGAN2/stylegan2-ada-pytorch/train.py --outdir="$OUTPUT_DIR" --data="$DATA_DIR" --snap=10 --resume="$OUTPUT_DIR/00001-preppedBlissSingleCharGrey-auto1-resumecustom/network-snapshot-000440.pkl"
-
