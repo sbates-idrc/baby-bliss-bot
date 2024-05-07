@@ -14,7 +14,6 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.chat_models import ChatOllama
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
-from operator import itemgetter
 
 # The location of the user document
 user_doc = "./data/user_doc.txt"
@@ -67,14 +66,14 @@ full_chat = f"Jutta: Elain, who would you like to invite to your birthday party?
 # using LangChain Expressive Language (LCEL) chain syntax
 chain = prompt | llm | StrOutputParser()
 
-print(f"====== Response without RAG ======")
+print("====== Response without RAG ======")
 
 print(chain.invoke({
     "context": "",
     "chat": full_chat
 }) + "\n")
 
-print(f"====== Response with RAG ======")
+print("====== Response with RAG ======")
 
 print(chain.invoke({
     "context": retriever.invoke(elain_reply),
