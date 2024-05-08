@@ -41,7 +41,7 @@ retriever = vectordb.as_retriever()
 # query the vector db to test
 queries = [
     "Roy nephew",
-    "my schools"]
+    "high school"]
 
 for query in queries:
     results = retriever.invoke(query)
