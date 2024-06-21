@@ -7,7 +7,7 @@ training data, potentially leading to factual errors or inconsistencies. Read
 [What Is Retrieval-Augmented Generation, aka RAG?](https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/)
 for more information.
 
-In a co-design session with an AAC (Augmentative and Alternative Communication)) user, RAG can
+In a co-design session with an AAC (Augmentative and Alternative Communication) user, RAG can
 be particularly useful. When the user expressed a desire to invite "Roy nephew" to her birthday
 party, the ambiguity occurred as to whether "Roy" and "nephew" referred to the same person or
 different individuals. Traditional language models might interpret this statement inconsistently,
@@ -18,8 +18,10 @@ containing relevant information about the user's family members and their relati
 retrieving and incorporating this contextual information into the language model's input, RAG
 can disambiguate the user's intent and generate a more accurate response.
 
-The RAG experiments are located in the `jobs/RAG` directory. It contains these scripts:
+The RAG experiment is located in the `jobs/RAG` directory. It contains these scripts:
 
+* `requirements.txt`: contains python dependencies for setting up the environment to run
+the python script.
 * `rag.py`: use RAG to address the "Roy nephew" issue described above.
 
 ## Run Scripts Locally
