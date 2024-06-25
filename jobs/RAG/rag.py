@@ -60,8 +60,8 @@ prompt_template_with_context = """
 llm = ChatOllama(model="llama3", system="Elaine is an AAC user who expresses herself telegraphically. She is now in a meeting with Jutta. Below is the conversation in the meeting. Please help to convert what Elaine said to first-person sentences. Only respond with converted sentences.")
 prompt = ChatPromptTemplate.from_template(prompt_template_with_context)
 
-elain_reply = "Roy nephew"
-full_chat = f"Jutta: Elain, who would you like to invite to your birthday party?\n Elaine: {elain_reply}."
+elaine_reply = "Roy nephew"
+full_chat = f"Jutta: Elaine, who would you like to invite to your birthday party?\n Elaine: {elaine_reply}."
 
 # using LangChain Expressive Language (LCEL) chain syntax
 chain = prompt | llm | StrOutputParser()
@@ -76,6 +76,6 @@ print(chain.invoke({
 print("====== Response with RAG ======")
 
 print(chain.invoke({
-    "context": retriever.invoke(elain_reply),
+    "context": retriever.invoke(elaine_reply),
     "chat": full_chat
 }) + "\n")

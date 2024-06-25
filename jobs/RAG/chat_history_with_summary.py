@@ -26,15 +26,15 @@ message_to_convert = "she love cooking like share recipes"
 # Chat history
 chat_history = [
     "John: Have you heard about the new Italian restaurant downtown?",
-    "Elain: Yes, I did! Sarah mentioned it to me yesterday. She said the pasta there is amazing.",
+    "Elaine: Yes, I did! Sarah mentioned it to me yesterday. She said the pasta there is amazing.",
     "John: I was thinking of going there this weekend. Want to join?",
-    "Elain: That sounds great! Maybe we can invite Sarah too.",
+    "Elaine: That sounds great! Maybe we can invite Sarah too.",
     "John: Good idea. By the way, did you catch the latest episode of that mystery series we were discussing last week?",
-    "Elain: Oh, the one with the detective in New York? Yes, I watched it last night. It was so intense!",
+    "Elaine: Oh, the one with the detective in New York? Yes, I watched it last night. It was so intense!",
     "John: I know, right? I didn't expect that plot twist at the end. Do you think Sarah has seen it yet?",
-    "Elain: I'm not sure. She was pretty busy with work the last time we talked. We should ask her when we see her at the restaurant.",
+    "Elaine: I'm not sure. She was pretty busy with work the last time we talked. We should ask her when we see her at the restaurant.",
     "John: Definitely. Speaking of Sarah, did she tell you about her trip to Italy next month?",
-    "Elain: Yes, she did. She's so excited about it! She's planning to visit a lot of historical sites.",
+    "Elaine: Yes, she did. She's so excited about it! She's planning to visit a lot of historical sites.",
     "John: I bet she'll have a great time. Maybe she can bring back some authentic Italian recipes for us to try.",
 ]
 recent_chat_array = []
