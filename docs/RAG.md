@@ -30,7 +30,7 @@ the python script.
 
 * If you are currently in a activated virtual environment, deactivate it.
 
-* Install [Ollama](https://github.com/ollama/ollama) to run language models locally
+* Install and start [Ollama](https://github.com/ollama/ollama) to run language models locally
   * Follow [README](https://github.com/ollama/ollama?tab=readme-ov-file#customize-a-model) to
   install and run Ollama on a local computer.
 
