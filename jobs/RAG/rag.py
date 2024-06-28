@@ -6,6 +6,7 @@
 # You may obtain a copy of the BSD 3-Clause License at
 # https://github.com/inclusive-design/baby-bliss-bot/blob/main/LICENSE
 
+import sys
 import os
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import CharacterTextSplitter
@@ -15,11 +16,23 @@ from langchain_community.chat_models import ChatOllama
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
+
+# A utility function that prints the script usage then exit
+def printUsageThenExit():
+    print("Usage: python rag.py <sentence_transformer_model_directory>")
+    sys.exit()
+
+
+# Read the path to the sentence transformer model
+if len(sys.argv) != 2:
+    printUsageThenExit()
+else:
+    sentence_transformer_dir = sys.argv[1]
+    if not os.path.isdir(sentence_transformer_dir):
+        printUsageThenExit()
+
 # The location of the user document
 user_doc = "./data/user_doc.txt"
-
-# The location of the sentence transformer model in the local directory
-sentence_transformer_dir = os.path.expanduser("~") + "/Development/LLMs/all-MiniLM-L6-v2"
 
 loader = TextLoader(user_doc)
 documents = loader.load()

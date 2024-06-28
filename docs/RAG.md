@@ -28,16 +28,26 @@ the python script.
 
 ### Prerequisites
 
-* [Ollama](https://github.com/ollama/ollama) to run language models locally
+* If you are currently in a activated virtual environment, deactivate it.
+
+* Install [Ollama](https://github.com/ollama/ollama) to run language models locally
   * Follow [README](https://github.com/ollama/ollama?tab=readme-ov-file#customize-a-model) to
   install and run Ollama on a local computer.
-* Download a sentence transformer model
-  * Select [a sentence transformer model](https://huggingface.co/sentence-transformers)
-  from Hugging Face. Download it to a local directory. Scripts in this experiment uses
-  [`all-MiniLM-L6-v2` model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2).
-  Adjust the variable value of `sentence_transformer_dir` in scripts to point to the sentence
-  transformer model directory.
-* If you are currently in a activated virtual environment, deactivate it.
+
+* Download a Sentence Transformer Model
+  1. Select a Model
+    - Choose a [sentence transformer model](https://huggingface.co/sentence-transformers) from Hugging Face.
+  2. Download the Model
+    - Download the selected model to a local directory. For example, to download the 
+    [`all-MiniLM-L6-v2` model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), use the following
+    command:
+      ```sh
+      git clone https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2
+      ```
+  3. Provide the Model Path
+    - When running the `rag.py` script, provide the path to the directory of the downloaded model as a parameter.
+  **Note:** Accessing a local sentence transformer model is much faster than accessing it via the
+  `sentence-transformers` Python package.
 
 ### Create/Activitate Virtual Environment
 * Go to the RAG scripts directory
@@ -55,7 +65,7 @@ the python script.
   - `pip install -r requirements.txt`
 
 ### Run Scripts
-* Run `rag.py`
-  - `python rag.py`
+* Run `rag.py` with a parameter providing the path to the directory of a sentence transformer model
+  - `python rag.py ./all-MiniLM-L6-v2/`
   - The last two responses in the exectution result shows the language model's output
   with and without the use of RAG.
