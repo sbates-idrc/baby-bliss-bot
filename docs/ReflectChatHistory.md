@@ -73,5 +73,5 @@ The converted sentences are more accurate and appropriate compared to those gene
 ### Run Scripts
 * Run `chat_history_with_summary.py` or `chat_history_with_prompt.py`
   - `python chat_history_with_summary.py` or `python chat_history_with_prompt.py`
-  - The last two responses in the exectution result shows the language model's output
+  - The last two responses in the execution result shows the language model's output
   with and without the contextual information.

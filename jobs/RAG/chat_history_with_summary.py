@@ -10,9 +10,6 @@ from langchain_community.chat_models import ChatOllama
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
-# from langchain_core.globals import set_debug
-# set_debug(True)
-
 # Define the Ollama model to use
 model = "llama3"
 

@@ -67,5 +67,5 @@ the python script.
 ### Run Scripts
 * Run `rag.py` with a parameter providing the path to the directory of a sentence transformer model
   - `python rag.py ./all-MiniLM-L6-v2/`
-  - The last two responses in the exectution result shows the language model's output
+  - The last two responses in the execution result shows the language model's output
   with and without the use of RAG.
