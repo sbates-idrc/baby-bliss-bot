@@ -38,6 +38,8 @@ the python script.
   1. Select a Model
     - Choose a [sentence transformer model](https://huggingface.co/sentence-transformers) from Hugging Face.
   2. Download the Model
+    - Make sure that your system has the git-lfs command installed. See 
+    [Git Large File Storage](https://git-lfs.com/) for instructions.
     - Download the selected model to a local directory. For example, to download the 
     [`all-MiniLM-L6-v2` model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), use the following
     command:
@@ -49,7 +51,7 @@ the python script.
   **Note:** Accessing a local sentence transformer model is much faster than accessing it via the
   `sentence-transformers` Python package.
 
-### Create/Activitate Virtual Environment
+### Create/Activiate Virtual Environment
 * Go to the RAG scripts directory
   - `cd jobs/RAG`
 

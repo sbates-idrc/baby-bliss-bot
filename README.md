@@ -29,7 +29,7 @@ git clone https://github.com/your-username/baby-bliss-bot
 cd baby-bliss-bot
 ```
 
-### Create/Activitate Virtual Environment
+### Create/Activiate Virtual Environment
 Always activate and use the python virtual environment to maintain an isolated environment for project's dependencies.
 
 * [Create the virtual environment](https://docs.python.org/3/library/venv.html)
