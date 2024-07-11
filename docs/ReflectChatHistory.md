@@ -55,7 +55,7 @@ The converted sentences are more accurate and appropriate compared to those gene
   install and run Ollama on a local computer.
 * If you are currently in a activated virtual environment, deactivate it.
 
-### Create/Activiate Virtual Environment
+### Create/Activate Virtual Environment
 * Go to the RAG scripts directory
   - `cd jobs/RAG`
 

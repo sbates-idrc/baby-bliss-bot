@@ -51,7 +51,7 @@ the python script.
   **Note:** Accessing a local sentence transformer model is much faster than accessing it via the
   `sentence-transformers` Python package.
 
-### Create/Activiate Virtual Environment
+### Create/Activate Virtual Environment
 * Go to the RAG scripts directory
   - `cd jobs/RAG`
 
