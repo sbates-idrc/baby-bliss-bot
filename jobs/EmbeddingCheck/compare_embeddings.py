@@ -70,6 +70,9 @@ for i, example in enumerate(examples, 1):
     print(f"\nExample {i}: Word '{example['word']}'")
     print("-" * 50)
     
+    print(f"Phrase 1: '{example['phrases'][0]}'")
+    print(f"Phrase 2: '{example['phrases'][1]}'")
+
     # Get embeddings for the word in both phrases
     embeddings = [get_word_embedding(phrase, example['word']) for phrase in example['phrases']]
     
@@ -79,8 +82,6 @@ for i, example in enumerate(examples, 1):
     distance = 1 - similarity
     
     # Print results
-    print(f"Phrase 1: '{example['phrases'][0]}'")
-    print(f"Phrase 2: '{example['phrases'][1]}'")
     print(f"Are the embeddings exactly the same? {are_equal}")
     print(f"Cosine similarity between embeddings: {similarity:.4f}")
     print(f"Cosine distance between embeddings: {distance:.4f}")
