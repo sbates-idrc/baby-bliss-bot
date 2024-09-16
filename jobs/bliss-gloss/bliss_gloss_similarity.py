@@ -1,3 +1,7 @@
+# Go through English gloss for Bliss symbols to compare embeddings for multiple English glosses associated
+# with each symbol. Report any with cosine similarity below 0.5. This is the result list:
+# https://gist.github.com/cindyli/9b4359f97093a974086f3e374933ed86
+
 import os
 import sys
 import torch

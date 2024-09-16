@@ -1,3 +1,12 @@
+# Compare multiple words in pairs to compare their embeddings and rport cosine similarity
+# Results:
+# 'period' and 'point': 0.8708
+# 'period' and 'full stop': 0.8567
+# 'period' and 'decimal point': 0.8443
+# 'point' and 'full stop': 0.8695
+# 'point' and 'decimal point': 0.8602
+# 'full stop' and 'decimal point': 0.8891
+
 import os
 import torch
 from transformers import LlamaTokenizer, LlamaModel
@@ -19,6 +28,10 @@ def calculate_similarity(model, tokenizer, gloss1, gloss2):
     return similarity.item()
 
 
+# The specific Bliss ID with multiple glosses to compare.
+# The line format is "{ID}TAB{glosses_with_comma_separator}"
+line = '8486	"period,point,full_stop,decimal_point"'
+
 # The local directory with the model and the tokenizer
 model_dir = os.path.expanduser("~") + "/Development/LLMs/Llama-2-7b-hf"
 
@@ -26,7 +39,6 @@ model_dir = os.path.expanduser("~") + "/Development/LLMs/Llama-2-7b-hf"
 tokenizer = LlamaTokenizer.from_pretrained(model_dir)
 model = LlamaModel.from_pretrained(model_dir)
 
-line = '8486	"period,point,full_stop,decimal_point"'
 parts = line.strip().split('\t')
 if len(parts) != 2:
     print(f"*** Error: incorrect line - '{line}'")
