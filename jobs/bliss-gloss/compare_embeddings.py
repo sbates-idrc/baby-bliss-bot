@@ -1,4 +1,6 @@
-# Compare the embedding of the same word in difference sentences(contexts)
+# Compare input embeddings and output embeddings of the same word in difference sentences(contexts)
+# 1. The input embedding to the first layer of the neural netword
+# 2. The output embedding from the last layer of the neural netword
 
 import os
 from transformers import LlamaTokenizer, LlamaModel
@@ -58,15 +60,22 @@ def get_word_embedding(phrase, word):
     with torch.no_grad():
         outputs = model(**inputs)
 
-    # Extract the embedding for the word
-    word_embedding = outputs.last_hidden_state[0, word_position, :]
+    # Extract the input embeddings of the phrase
+    input_embeddings = model.embed_tokens(inputs['input_ids'])
+    print(f"inputs['input_ids']: ", inputs['input_ids'])
 
-    return word_embedding
+    return {
+        "input_embedding": input_embeddings[0, word_position],
+        "output_embedding": outputs.last_hidden_state[0, word_position, :]
+    }
 
 
-# Function to calculate cosine similarity between two embeddings
-def cosine_similarity(emb1, emb2):
-    return F.cosine_similarity(emb1.unsqueeze(0), emb2.unsqueeze(0)).item()
+# Function to calculate if two embeddings are equal and the cosine similarity between two embeddings
+def compare_embedding(emb1, emb2):
+    return {
+        "are_equal": torch.allclose(emb1, emb2, atol=1e-6),
+        "similarity": F.cosine_similarity(emb1.unsqueeze(0), emb2.unsqueeze(0)).item()
+    }
 
 
 for i, example in enumerate(examples, 1):
@@ -80,11 +89,11 @@ for i, example in enumerate(examples, 1):
     embeddings = [get_word_embedding(phrase, example['word']) for phrase in example['phrases']]
 
     # Compare the embeddings
-    are_equal = torch.allclose(embeddings[0], embeddings[1], atol=1e-6)
-    similarity = cosine_similarity(embeddings[0], embeddings[1])
-    distance = 1 - similarity
+    input_result = compare_embedding(embeddings[0]["input_embedding"], embeddings[1]["input_embedding"])
+    output_result = compare_embedding(embeddings[0]["output_embedding"], embeddings[1]["output_embedding"])
 
     # Print results
-    print(f"Are the embeddings exactly the same? {are_equal}")
-    print(f"Cosine similarity between embeddings: {similarity:.4f}")
-    print(f"Cosine distance between embeddings: {distance:.4f}")
+    print(f"Input embedding: Are the embeddings exactly the same? {input_result['are_equal']}")
+    print(f"Input embedding: Cosine similarity between embeddings: {input_result['similarity']:.4f}")
+    print(f"Output embedding: Are the embeddings exactly the same? {output_result['are_equal']}")
+    print(f"Output embedding: Cosine similarity between embeddings: {output_result['similarity']:.4f}")
