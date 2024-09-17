@@ -62,7 +62,7 @@ def get_word_embedding(phrase, word):
 
     # Extract the input embeddings of the phrase
     input_embeddings = model.embed_tokens(inputs['input_ids'])
-    print(f"inputs['input_ids']: ", inputs['input_ids'])
+    print(f"inputs['input_ids']: {inputs['input_ids']}")
 
     return {
         "input_embedding": input_embeddings[0, word_position],
