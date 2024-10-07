@@ -74,7 +74,7 @@ def get_mean_single_token_embeddings(model, tokenizer, glosses):
     single_token_glosses = []
     input_embeddings = []
     output_embeddings = []
-    
+
     # Loop through each gloss for the current ID
     for gloss in glosses:
         gloss = preprocess_gloss(gloss)
@@ -84,11 +84,11 @@ def get_mean_single_token_embeddings(model, tokenizer, glosses):
         # Check if it's a single token gloss
         if len(token_id) > 1:
             continue
-        
+
         # Get input and output embedding of the token
         input_embedding = model.get_input_embeddings().weight[token_id]  # the input embedding
-        output_embedding = model.lm_head.weight[token_id] # the output embedding
-        
+        output_embedding = model.lm_head.weight[token_id]  # the output embedding
+
         single_token_glosses.append(gloss)
         input_embeddings.append(input_embedding)
         output_embeddings.append(output_embedding)
@@ -112,7 +112,7 @@ new_token_output_embeddings = []
 # Process each record in the JSON
 for bliss_id, glosses in input_gloss_data.items():
     calculated_glosses, input_emb, output_emb = (get_first_single_token_embeddings if USE_FIRST_SINGLE_TOKEN_GLOSS else get_mean_single_token_embeddings)(model, tokenizer, glosses)
-    
+
     if calculated_glosses:
         special_token = f"[BLISS_{bliss_id}]"
         new_tokens_to_add.append(special_token)
@@ -243,10 +243,10 @@ def generate_text_with_prompt_gpu(prompt, model, tokenizer, temperature=0.7):
 def convert_bag_of_words(model, tokenizer, bag_of_words):
     # Create a prompt to guide the model
     prompt = f"Create a complete sentence from the following words: {bag_of_words}."
-    
+
     # Tokenize the prompt
     inputs = tokenizer(prompt, return_tensors="pt")
-    
+
     # Generate the sentence with the model
     output_tokens = model.generate(
         input_ids=inputs['input_ids'],
@@ -255,7 +255,7 @@ def convert_bag_of_words(model, tokenizer, bag_of_words):
         no_repeat_ngram_size=2,  # prevent repetitive phrases
         early_stopping=True  # stop when a sentence is formed
     )
-    
+
     # Decode the output tokens back to a string
     generated_sentence = tokenizer.decode(output_tokens[0], skip_special_tokens=True)
     return generated_sentence
