@@ -35,8 +35,9 @@ with open(input_gloss_json, 'r') as f:
     input_gloss_data = json.load(f)
 
 # Load the local Llama model
-model_dir = os.path.expanduser("~") + "/Development/LLMs/Meta-Llama-3.1-8B"
-# model_dir = os.path.expanduser("~") + "/projects/ctb-whkchun/s2_bliss_LLMs/Meta-Llama-3.1-8B"
+# model_dir = os.path.expanduser("~") + "/Development/LLMs/Meta-Llama-3.1-8B"
+# model_dir = os.path.expanduser("~") + "/projects/ctb-whkchun/s2_bliss_LLMs/Llama-3.1-8B-Instruct"
+model_dir = os.path.expanduser("~") + "/projects/ctb-whkchun/s2_bliss_LLMs/Meta-Llama-3.1-8B"
 tokenizer = AutoTokenizer.from_pretrained(model_dir)
 model = AutoModelForCausalLM.from_pretrained(model_dir)
 
@@ -75,7 +76,7 @@ def get_mean_single_token_embeddings(model, tokenizer, glosses):
     input_embeddings = []
     output_embeddings = []
 
-    # Loop through each gloss for the current ID
+    # Loop through each gloss to find its token id and input/output embedding
     for gloss in glosses:
         gloss = preprocess_gloss(gloss)
         tokens = tokenizer.tokenize(gloss)
@@ -213,12 +214,20 @@ def predict_top_k_words(sentence, top_k=10):
     return top_predictions
 
 
-# Convert bag of words into a sentence using the model. This function runs for CPU.
-def generate_text_with_prompt_cpu(prompt, model, tokenizer, temperature=0.7):
-    print(f"Prompt: {prompt}")
+# Convert bag of words into a sentence using the model. This function runs for GPU.
+def generate_text_with_prompt(prompt, model, tokenizer, temperature=0.7):
+    print(f"Prompt: {prompt}\n")
+
+    # Check if GPU is available and set the device
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    # Move the model to the device
+    model.to(device)
+
+    # Move input_ids to the same device as the model
     inputs = tokenizer(prompt, return_tensors="pt", truncation=True)
-    input_ids = inputs.input_ids.to("cpu")
-    attention_mask = inputs.attention_mask.to("cpu")
+    input_ids = inputs.input_ids.to(device)
+    attention_mask = inputs.attention_mask.to(device)
 
     outputs = model.generate(
         input_ids=input_ids,
@@ -232,21 +241,13 @@ def generate_text_with_prompt_cpu(prompt, model, tokenizer, temperature=0.7):
     return tokenizer.batch_decode(outputs.cpu().detach().numpy(), skip_special_tokens=True)[0][len(prompt):]
 
 
-# Convert bag of words into a sentence using the model. This function runs for GPU.
-def generate_text_with_prompt_gpu(prompt, model, tokenizer, temperature=0.7):
-    input_ids = tokenizer(prompt, return_tensors="pt", truncation=True).input_ids.cuda()
-    print(f"Prompt: {prompt}\n")
-    outputs = model.generate(input_ids=input_ids, max_new_tokens=100, do_sample=True, top_p=0.9, temperature=temperature)
-    return tokenizer.batch_decode(outputs.detach().cpu().numpy(), skip_special_tokens=True)[0][len(prompt):]
-
-
 def convert_bag_of_words(model, tokenizer, bag_of_words):
     # Create a prompt to guide the model
     prompt = f"Create a complete sentence from the following words: {bag_of_words}."
-
+    
     # Tokenize the prompt
     inputs = tokenizer(prompt, return_tensors="pt")
-
+    
     # Generate the sentence with the model
     output_tokens = model.generate(
         input_ids=inputs['input_ids'],
@@ -255,7 +256,7 @@ def convert_bag_of_words(model, tokenizer, bag_of_words):
         no_repeat_ngram_size=2,  # prevent repetitive phrases
         early_stopping=True  # stop when a sentence is formed
     )
-
+    
     # Decode the output tokens back to a string
     generated_sentence = tokenizer.decode(output_tokens[0], skip_special_tokens=True)
     return generated_sentence
@@ -287,5 +288,4 @@ for words in bag_of_words:
     prompt = f"The given bag of words are from an AAC user who expresses himself telegraphically.\
  Please help to convert what the user said to first-person sentences. Only respond with converted sentences: {words}."
     print(f"A bag of word: {words}")
-    # print(f"Converted sentence: {generate_text_with_prompt_gpu(prompt, model, tokenizer)}\n")
-    print(f"Converted sentence: {generate_text_with_prompt_cpu(prompt, model, tokenizer)}\n")
+    print(f"Converted sentence: {generate_text_with_prompt(prompt, model, tokenizer)}\n")
