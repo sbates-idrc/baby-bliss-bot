@@ -257,9 +257,7 @@
     "about",
     "concerning",
     "regarding",
-    "in relation to",
-    "of",
-    "on"
+    "in relation to"
   ],
   "12325": [
     "absorbent material",
@@ -847,8 +845,7 @@
     "be",
     "am",
     "are",
-    "is",
-    "exist"
+    "is"
   ],
   "12640": [
     "beach",
@@ -1195,8 +1192,7 @@
     "crack",
     "fracture",
     "tear",
-    "injure",
-    "damage"
+    "injure"
   ],
   "12897": [
     "breakable",
@@ -1710,9 +1706,7 @@
   "13365": [
     "cloth",
     "fabric",
-    "material",
-    "textile",
-    "net"
+    "material"
   ],
   "13366": [
     "clothing",
@@ -1840,8 +1834,6 @@
   "13403": [
     "container",
     "bowl",
-    "holder",
-    "pouch",
     "basket"
   ],
   "13404": [
@@ -2585,8 +2577,7 @@
   "13940": [
     "enter",
     "absorb",
-    "insert",
-    "penetrate"
+    "insert"
   ],
   "13941": [
     "envious"
@@ -2791,9 +2782,7 @@
     "father",
     "dad",
     "daddy",
-    "papa",
-    "pa",
-    "pop"
+    "papa"
   ],
   "14158": [
     "favourite"
@@ -3559,8 +3548,7 @@
     "he",
     "she",
     "him",
-    "her",
-    "one"
+    "her"
   ],
   "14689": [
     "head"
@@ -3620,7 +3608,6 @@
     "help",
     "aid",
     "assist",
-    "serve",
     "support"
   ],
   "14706": [
@@ -3858,7 +3845,6 @@
     "improve"
   ],
   "14932": [
-    "in",
     "inside",
     "interior",
     "internal"
@@ -4478,7 +4464,6 @@
     "marry"
   ],
   "15427": [
-    "mash",
     "crush",
     "squeeze",
     "squash"
@@ -4852,11 +4837,11 @@
   ],
   "15687": [
     "my",
-    "mine-(feminine)"
+    "mine"
   ],
   "15688": [
     "my",
-    "mine-(masculine)"
+    "mine"
   ],
   "15689": [
     "nail"
@@ -5166,18 +5151,17 @@
   ],
   "15939": [
     "our",
-    "ours-(feminine)"
+    "ours"
   ],
   "15940": [
     "our",
-    "ours-(masculine)"
+    "ours"
   ],
   "15941": [
     "our",
     "ours"
   ],
   "15942": [
-    "out",
     "exterior",
     "external",
     "outside"
@@ -5437,9 +5421,7 @@
   ],
   "16172": [
     "picture",
-    "image",
-    "icon",
-    "painting"
+    "image"
   ],
   "16173": [
     "pie",
@@ -5699,12 +5681,10 @@
     "premature birth"
   ],
   "16244": [
-    "prepare",
     "set",
     "set up",
     "ready",
-    "gear up",
-    "fix"
+    "gear up"
   ],
   "16245": [
     "prepare food",
@@ -5824,7 +5804,6 @@
   ],
   "16440": [
     "put",
-    "locate",
     "place"
   ],
   "16441": [
@@ -5978,7 +5957,7 @@
   "16482": [
     "who",
     "that",
-    "which-(relative)"
+    "which"
   ],
   "16483": [
     "religion",
@@ -7453,15 +7432,15 @@
   ],
   "17702": [
     "their",
-    "theirs-(indefinite)"
+    "theirs"
   ],
   "17703": [
     "their",
-    "theirs-(feminine plural)"
+    "theirs"
   ],
   "17704": [
     "their",
-    "theirs-(masculine plural)"
+    "theirs"
   ],
   "17705": [
     "then",
@@ -7493,22 +7472,22 @@
   "17712": [
     "they",
     "them",
-    "themselves-(indefinite)"
+    "themselves"
   ],
   "17713": [
     "they",
     "them",
-    "themselves-(persons)"
+    "themselves"
   ],
   "17714": [
     "they",
     "them",
-    "themselves-(feminine plural)"
+    "themselves"
   ],
   "17715": [
     "they",
     "them",
-    "themselves-(masculine plural)"
+    "themselves"
   ],
   "17716": [
     "thin",
@@ -7878,8 +7857,7 @@
   ],
   "17982": [
     "until",
-    "till",
-    "to"
+    "till"
   ],
   "17983": [
     "up",
@@ -7915,8 +7893,7 @@
     "piss",
     "pee",
     "piddle",
-    "weewee",
-    "water"
+    "weewee"
   ],
   "17991": [
     "use"
@@ -8118,12 +8095,12 @@
   "18210": [
     "we",
     "us",
-    "ourselves-(feminine)"
+    "ourselves"
   ],
   "18211": [
     "we",
     "us",
-    "ourselves-(masculine)"
+    "ourselves"
   ],
   "18212": [
     "we",
@@ -8216,7 +8193,7 @@
   ],
   "18239": [
     "which",
-    "which-(question)"
+    "which"
   ],
   "18240": [
     "whisper"
@@ -8229,12 +8206,12 @@
   ],
   "18244": [
     "who",
-    "whom-(question)"
+    "whom"
   ],
   "18245": [
     "who",
     "whom",
-    "that-(relative)"
+    "that"
   ],
   "18246": [
     "whose"
@@ -8244,7 +8221,7 @@
   ],
   "18248": [
     "whose",
-    "whose-(question)"
+    "whose"
   ],
   "18249": [
     "why"
@@ -8362,10 +8339,7 @@
     "worry"
   ],
   "18282": [
-    "wow",
-    "super",
     "great",
-    "neat",
     "cool"
   ],
   "18283": [
@@ -8417,23 +8391,23 @@
   ],
   "18298": [
     "you",
-    "yourselves-(feminine plural)"
+    "yourselves"
   ],
   "18299": [
     "you",
-    "yourself-(feminine singular)"
+    "yourself"
   ],
   "18300": [
     "you",
-    "yourselves-(masculine plural)"
+    "yourselves"
   ],
   "18301": [
     "you",
-    "yourself-(masculine singular)"
+    "yourself"
   ],
   "18302": [
-    "you",
-    "yourselves-(plural)"
+    "yourselves",
+    "you"
   ],
   "18465": [
     "you",
@@ -8448,27 +8422,27 @@
   ],
   "18468": [
     "your",
-    "yours-(feminine plural)"
+    "yours"
   ],
   "18469": [
     "your",
-    "yours-(feminine singular)"
+    "yours"
   ],
   "18470": [
     "your",
-    "yours-(masculine plural)"
+    "yours"
   ],
   "18471": [
     "your",
-    "yours-(masculine singular)"
+    "yours"
   ],
   "18472": [
-    "your",
-    "yours-(plural)"
+    "yours",
+    "your"
   ],
   "18473": [
-    "your",
-    "yours-(singular)"
+    "yours",
+    "your"
   ],
   "18474": [
     "zebra"
@@ -8669,7 +8643,7 @@
   ],
   "20603": [
     "table tennis",
-    "ping-pong"
+    "pingpong"
   ],
   "20604": [
     "beach tennis"
@@ -8729,7 +8703,7 @@
     "Allah"
   ],
   "21036": [
-    "supernatural-(noun)"
+    "supernatural"
   ],
   "21037": [
     "Vatican",
@@ -9291,7 +9265,7 @@
   ],
   "21380": [
     "universal",
-    "world-wide"
+    "worldwide"
   ],
   "21381": [
     "forgiven"
@@ -9654,7 +9628,7 @@
   ],
   "21813": [
     "prone board",
-    "scooter-board"
+    "scooterboard"
   ],
   "21814": [
     "handcycle"
@@ -11396,10 +11370,6 @@
   "23132": [
     "law"
   ],
-  "23133": [
-    "law",
-    "law-(a)"
-  ],
   "23134": [
     "law",
     "The Law"
@@ -11804,12 +11774,8 @@
     "attached"
   ],
   "23409": [
-    "attachment",
     "fastening",
-    "joint",
-    "seam",
-    "appendix",
-    "annex"
+    "appendix"
   ],
   "23410": [
     "attachment"
@@ -12058,11 +12024,9 @@
     "elf"
   ],
   "23485": [
-    "e-mail",
     "email"
   ],
   "23486": [
-    "e-mail address",
     "email address"
   ],
   "23487": [
@@ -13530,7 +13494,7 @@
   ],
   "24021": [
     "bean",
-    "chick-pea",
+    "chickpea",
     "kidney bean",
     "pinto bean"
   ],
@@ -14308,8 +14272,7 @@
   ],
   "24261": [
     "shall",
-    "will",
-    "will-(modal aux v)"
+    "will"
   ],
   "24262": [
     "shampoo"
@@ -14319,8 +14282,7 @@
   ],
   "24264": [
     "should",
-    "would",
-    "would-(modal aux v)"
+    "would"
   ],
   "24265": [
     "sign of the cross"
@@ -14537,8 +14499,7 @@
     "papilloma"
   ],
   "24330": [
-    "water",
-    "water-(to)"
+    "water"
   ],
   "24331": [
     "water bucket"
@@ -16135,7 +16096,6 @@
     "ruined",
     "demolished",
     "deleted",
-    "erased",
     "cancelled"
   ],
   "25001": [
@@ -16722,7 +16682,6 @@
     "steak"
   ],
   "25177": [
-    "still",
     "calm",
     "peaceful",
     "tranquil"
@@ -18886,8 +18845,7 @@
     "fiber",
     "fibre",
     "fibril",
-    "filament",
-    "strand"
+    "filament"
   ],
   "25879": [
     "folk tale",
@@ -19990,10 +19948,7 @@
     "slanted"
   ],
   "26243": [
-    "sort",
-    "differentiate",
-    "separate",
-    "classify"
+    "differentiate"
   ],
   "26244": [
     "sort garbage",
@@ -21112,7 +21067,7 @@
   "29003": [
     "alternate",
     "expand",
-    "stretch-(to)"
+    "stretch"
   ],
   "29004": [
     "alternation",

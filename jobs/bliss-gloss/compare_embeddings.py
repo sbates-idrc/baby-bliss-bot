@@ -5,7 +5,7 @@
 import os
 from transformers import LlamaTokenizer, LlamaModel
 import torch
-import torch.nn.functional as F
+from utility_funcs import compare_embedding
 
 # The local directory with the model and the tokenizer
 model_dir = os.path.expanduser("~") + "/Development/LLMs/Llama-2-7b-hf"
@@ -67,14 +67,6 @@ def get_word_embedding(phrase, word):
     return {
         "input_embedding": input_embeddings[0, word_position],
         "output_embedding": outputs.last_hidden_state[0, word_position, :]
-    }
-
-
-# Function to calculate if two embeddings are equal and the cosine similarity between two embeddings
-def compare_embedding(emb1, emb2):
-    return {
-        "are_equal": torch.allclose(emb1, emb2, atol=1e-6),
-        "similarity": F.cosine_similarity(emb1.unsqueeze(0), emb2.unsqueeze(0)).item()
     }
 
 

@@ -1,25 +1,26 @@
 # Usage:
-# python add_bliss_tokens.py data/bliss_gloss_cleaned.json ~/Downloads/LlamaBliss ./data/bliss_ids_added.json ./data/bliss_ids_not_added.json
+# python add_bliss_tokens.py data/bliss_gloss_cleaned_synonyms.json ~/Downloads/LlamaBliss ./data/bliss_ids_added.json ./data/bliss_ids_not_added.json
 
 import sys
 import os
 import json
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
+from utility_funcs import get_first_single_token_embeddings, get_mean_single_token_embeddings
 
 # When True, assign output embeddings to new Bliss tokens so the model can output new Bliss tokens.
 # When False, do not assign output embeddings to new tokens so the output layer is not aware of new tokens
 # and the model only outputs English.
-ASSIGN_BLISS_OUTPUT_EMBEDDING = False
+ASSIGN_BLISS_OUTPUT_EMBEDDING = True
 
 # When True, zero out all old output embeddings and only keep the new Bliss embeddings
 # so the model will only output Bliss tokens.
 # When False, keep both old and new output embeddings so the model will output a mix of English and Bliss.
-ZERO_OUT_OLD_OUTPUT_EMBEDDING = False
+ZERO_OUT_OLD_OUTPUT_EMBEDDING = True
 
 # When True, assign the new Bliss token with input and output embeddings of the first single-token gloss.
 # When False, assign the mean input and output embeddings of all single-token glosses for each Bliss symbol.
-USE_FIRST_SINGLE_TOKEN_GLOSS = True
+USE_FIRST_SINGLE_TOKEN_GLOSS = False
 
 if len(sys.argv) != 5:
     print("Usage: python add_bliss_tokens.py <input_gloss_json> <output_model_path> <output_file_with_added_id> <output_file_with_not_added_id>")
@@ -35,73 +36,12 @@ with open(input_gloss_json, 'r') as f:
     input_gloss_data = json.load(f)
 
 # Load the local Llama model
+model_dir = os.path.expanduser("~") + "/Development/LLMs/Llama-3.1-8B-Instruct"
 # model_dir = os.path.expanduser("~") + "/Development/LLMs/Meta-Llama-3.1-8B"
 # model_dir = os.path.expanduser("~") + "/projects/ctb-whkchun/s2_bliss_LLMs/Llama-3.1-8B-Instruct"
-model_dir = os.path.expanduser("~") + "/projects/ctb-whkchun/s2_bliss_LLMs/Meta-Llama-3.1-8B"
+# model_dir = os.path.expanduser("~") + "/projects/ctb-whkchun/s2_bliss_LLMs/Meta-Llama-3.1-8B"
 tokenizer = AutoTokenizer.from_pretrained(model_dir)
 model = AutoModelForCausalLM.from_pretrained(model_dir)
-
-
-def preprocess_gloss(gloss):
-    return f" {gloss.replace(' ', '')}"
-
-
-# Loop through the given glosses and return the first gloss that can be converted into
-# a single token, along with its input and output embeddings. If none of the glosses
-# can be converted to a single token, return (None, None, None)
-# Return: a tuple of (first_single_token_gloss, input_embedding, output_embedding)
-def get_first_single_token_embeddings(model, tokenizer, glosses):
-    single_token_gloss = None
-    for gloss in glosses:
-        gloss = preprocess_gloss(gloss)
-        tokens = tokenizer.tokenize(gloss)
-        token_id = tokenizer.convert_tokens_to_ids(tokens)
-        if len(token_id) == 1:
-            single_token_gloss = gloss
-            break
-
-    if single_token_gloss:
-        return single_token_gloss, model.get_input_embeddings().weight[token_id], model.lm_head.weight[token_id]
-    else:
-        return None, None, None
-
-
-# Loop through the given glosses and return the first gloss that can be converted into
-# a single token, along with its input and output embeddings. If none of the glosses
-# can be converted to a single token, return (None, None, None)
-# Return: a tuple of (first_single_token_gloss, input_embedding, output_embedding)
-def get_mean_single_token_embeddings(model, tokenizer, glosses):
-    print(f"glosses: {glosses}")
-    single_token_glosses = []
-    input_embeddings = []
-    output_embeddings = []
-
-    # Loop through each gloss to find its token id and input/output embedding
-    for gloss in glosses:
-        gloss = preprocess_gloss(gloss)
-        tokens = tokenizer.tokenize(gloss)
-        token_id = tokenizer.convert_tokens_to_ids(tokens)
-
-        # Check if it's a single token gloss
-        if len(token_id) > 1:
-            continue
-
-        # Get input and output embedding of the token
-        input_embedding = model.get_input_embeddings().weight[token_id]  # the input embedding
-        output_embedding = model.lm_head.weight[token_id]  # the output embedding
-
-        single_token_glosses.append(gloss)
-        input_embeddings.append(input_embedding)
-        output_embeddings.append(output_embedding)
-
-    if len(single_token_glosses) > 0:
-        print(f"single token glosses: {single_token_glosses}")
-        mean_input_embedding = torch.mean(torch.stack(input_embeddings), dim=0)
-        mean_output_embedding = torch.mean(torch.stack(output_embeddings), dim=0)
-
-        return single_token_glosses, mean_input_embedding, mean_output_embedding
-    else:
-        return None, None, None
 
 
 not_added_bliss_ids = {}
@@ -143,7 +83,6 @@ with torch.no_grad():
         if ASSIGN_BLISS_OUTPUT_EMBEDDING:
             model.lm_head.weight[new_token_id] = new_token_output_embeddings[i]
 
-print("\n")
 print(f"{len(added_bliss_ids)} are added.")
 print(f"{len(not_added_bliss_ids)} are not added.")
 
@@ -244,10 +183,10 @@ def generate_text_with_prompt(prompt, model, tokenizer, temperature=0.7):
 def convert_bag_of_words(model, tokenizer, bag_of_words):
     # Create a prompt to guide the model
     prompt = f"Create a complete sentence from the following words: {bag_of_words}."
-    
+
     # Tokenize the prompt
     inputs = tokenizer(prompt, return_tensors="pt")
-    
+
     # Generate the sentence with the model
     output_tokens = model.generate(
         input_ids=inputs['input_ids'],
@@ -256,36 +195,48 @@ def convert_bag_of_words(model, tokenizer, bag_of_words):
         no_repeat_ngram_size=2,  # prevent repetitive phrases
         early_stopping=True  # stop when a sentence is formed
     )
-    
+
     # Decode the output tokens back to a string
     generated_sentence = tokenizer.decode(output_tokens[0], skip_special_tokens=True)
     return generated_sentence
 
 
-# sentences = ["I'm hungry so I want to", "[BLISS_14916][BLISS_14912][BLISS_14916][BLISS_18035][BLISS_17739]"]  # Incomplete sentence to predict
-# top_k = 6  # Number of top predictions to return
+sentences = [
+    "I'm hungry I want to",
+    "[BLISS_14916][BLISS_12639][BLISS_14912][BLISS_14916][BLISS_18035][BLISS_17739]",
+    "I'm hungry so I want to",
+    "[BLISS_14916][BLISS_12639][BLISS_14912][BLISS_17705][BLISS_14916][BLISS_18035][BLISS_17739]",
+    "I would like to eat some delicious",
+    "[BLISS_14916][BLISS_24264][BLISS_15210][BLISS_17739][BLISS_13906][BLISS_17207][BLISS_22352]",
+    "The doctor said it's important to",
+    "[BLISS_13861][BLISS_16728][BLISS_14960][BLISS_12639][BLISS_14930][BLISS_17739]",
+    "She carefully placed the fragile",
+    "[BLISS_14688][BLISS_13123][BLISS_16440][BLISS_17700][BLISS_12897]"
+]  # Incomplete sentence to predict
+
+top_k = 6  # Number of top predictions to return
+
+for sentence in sentences:
+    print(f"Predicted sentence: {sentence}")
+
+    predictions = predict_top_k_words(sentence, top_k)
+
+    print(f"Top {top_k} predictions:")
+    for word, prob in predictions:
+        print(f"{word}: {prob.item():.4f}")
+
 # threshold = 0.1  # 10% probability threshold
-
-# for sentence in sentences:
-#     print(f"Predicted sentence: {sentence}")
-
-#     predictions = predict_top_k_words(sentence, top_k)
-
-#     print(f"Top {top_k} predictions:")
-#     for word, prob in predictions:
-#         print(f"{word}: {prob.item():.4f}")
-
 # predictions = predict_next_words_above_threshold(probabilities, threshold)
 
 # print(f"\nPredictions above threshold {threshold}:")
 # for word, prob in predictions:
 #     print(f"{word}: {prob.item():.4f}\n")
 
-bag_of_words = ["nice weather walk", "[BLISS_15717][BLISS_18214][BLISS_18031]",
-                "caregiver action keep home clean", "[BLISS_23063][BLISS_23007][BLISS_15143][BLISS_14885][BLISS_24062]"]
+# bag_of_words = ["nice weather walk", "[BLISS_15717][BLISS_18214][BLISS_18031]",
+#                 "caregiver action keep home clean", "[BLISS_23063][BLISS_23007][BLISS_15143][BLISS_14885][BLISS_24062]"]
 
-for words in bag_of_words:
-    prompt = f"The given bag of words are from an AAC user who expresses himself telegraphically.\
- Please help to convert what the user said to first-person sentences. Only respond with converted sentences: {words}."
-    print(f"A bag of word: {words}")
-    print(f"Converted sentence: {generate_text_with_prompt(prompt, model, tokenizer)}\n")
+# for words in bag_of_words:
+#     prompt = f"The given bag of words are from an AAC user who expresses himself telegraphically.\
+#  Please help to convert what the user said to first-person sentences. Only respond with converted sentences: {words}."
+#     print(f"A bag of word: {words}")
+#     print(f"Converted sentence: {generate_text_with_prompt(prompt, model, tokenizer)}\n")
