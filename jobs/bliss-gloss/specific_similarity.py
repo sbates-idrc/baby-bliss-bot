@@ -1,4 +1,4 @@
-# Compare multiple words in pairs to compare their embeddings and rport cosine similarity
+# Compare multiple words in pairs to compare their embeddings and report cosine similarity
 # Results:
 # 'period' and 'point': 0.8708
 # 'period' and 'full stop': 0.8567

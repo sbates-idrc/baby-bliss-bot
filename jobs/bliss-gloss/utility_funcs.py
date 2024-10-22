@@ -2,6 +2,10 @@ import torch
 import torch.nn.functional as F
 
 
+def preprocess_gloss(gloss):
+    return f" {gloss.replace(' ', '').replace('-', '')}"
+
+
 # Calculate if two embeddings are equal and the cosine similarity between two embeddings
 def compare_embedding(emb1, emb2):
     return {
@@ -10,8 +14,16 @@ def compare_embedding(emb1, emb2):
     }
 
 
-def preprocess_gloss(gloss):
-    return f" {gloss.replace(' ', '').replace('-', '')}"
+# Get the contextual embedding of a phrase
+def get_contextual_embedding(model, tokenizer, phrase):
+    inputs = tokenizer(phrase, return_tensors="pt", add_special_tokens=False)
+    # inputs = tokenizer(phrase, return_tensors="pt")
+
+    # Pass the tokens through the model to get the contextual embeddings
+    with torch.no_grad():
+        outputs = model(**inputs, output_hidden_states=True)
+
+    return outputs.hidden_states[-1].squeeze(0)
 
 
 # Loop through the given glosses and return the first gloss that can be converted into

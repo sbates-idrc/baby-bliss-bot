@@ -33,7 +33,6 @@ threshold = float(sys.argv[2])
 
 # The local directory with the model and the tokenizer
 model_dir = os.path.expanduser("~") + "/Development/LLMs/Llama-2-7b-hf"
-# model_dir = os.path.expanduser("~") + "/projects/ctb-whkchun/s2_bliss_LLMs/Llama-2-7b-hf"
 
 # Initialize the Llama tokenizer and model
 tokenizer = LlamaTokenizer.from_pretrained(model_dir)

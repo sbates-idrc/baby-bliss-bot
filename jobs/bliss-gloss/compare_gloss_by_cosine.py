@@ -1,13 +1,18 @@
+# This script reads in the Bliss gloss file. For each pair of glosses associated with a Bliss ID,
+# it computes the cosine similarity between their input and output embeddings. If the similarity
+# for either embedding is below a specified threshold, the pair is flagged as a mismatch. All
+# mismatches are written into an output file.
+#
 # python compare_gloss_by_cosine.py data/bliss_gloss_cleaned_synonyms.json data/consine_mismatch.json
 
 import sys
 import os
 import json
 from transformers import AutoModelForCausalLM, AutoTokenizer
-from utility_funcs import compare_embedding, preprocess_gloss
+from utility_funcs import compare_embedding, preprocess_gloss, get_contextual_embedding
 
 # Set a standard deviation threshold for detecting outliers
-THRESHOLD = 0.5
+THRESHOLD = 0.8
 
 if len(sys.argv) != 3:
     print("Usage: python compare_gloss_by_cosine.py <input_gloss_json> <analysis_output_file>")
@@ -35,8 +40,7 @@ count_total_comparison = 0
 # Process each record in the JSON
 for bliss_id, glosses in input_gloss_data.items():
     single_token_glosses = []
-    input_embeddings = []
-    output_embeddings = []
+    contextual_embeddings = []
 
     # Loop through each gloss to find its token id and input/output embedding
     for gloss in glosses:
@@ -50,8 +54,9 @@ for bliss_id, glosses in input_gloss_data.items():
 
         token_id = token_id[0]  # Get the single token ID
         single_token_glosses.append(gloss)
-        input_embeddings.append(model.get_input_embeddings().weight[token_id])
-        output_embeddings.append(model.lm_head.weight[token_id])
+
+        # Use the second contextual embedding because the first token is a special token "<|begin_of_text|>"
+        contextual_embeddings.append(get_contextual_embedding(model, tokenizer, gloss)[0])
 
     num_of_single_glosses = len(single_token_glosses)
     if num_of_single_glosses > 1:
@@ -63,19 +68,14 @@ for bliss_id, glosses in input_gloss_data.items():
         for i in range(num_of_single_glosses):
             for j in range(i + 1, num_of_single_glosses):
                 count_total_comparison = count_total_comparison + 1
-                input_comparison = compare_embedding(input_embeddings[i], input_embeddings[j])
-                output_comparison = compare_embedding(output_embeddings[i], output_embeddings[j])
+                contextual_comparison = compare_embedding(contextual_embeddings[i], contextual_embeddings[j])
 
-                if input_comparison["similarity"] < THRESHOLD or output_comparison["similarity"] < THRESHOLD:
+                if contextual_comparison["similarity"] < THRESHOLD:
                     count_mismatch = count_mismatch + 1
                     one_mismatch = {
                         "glosses": [single_token_glosses[i], single_token_glosses[j]]
                     }
-
-                    if input_comparison["similarity"] < THRESHOLD:
-                        one_mismatch["input_similarity"] = input_comparison["similarity"]
-                    if output_comparison["similarity"] < THRESHOLD:
-                        one_mismatch["output_similarity"] = output_comparison["similarity"]
+                    one_mismatch["contextual_similarity"] = contextual_comparison["similarity"]
 
                     all_single_token_glosses[bliss_id]["mismatch"].append(one_mismatch)
 

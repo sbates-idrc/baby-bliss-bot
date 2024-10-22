@@ -1,6 +1,6 @@
-# Compare input embeddings and output embeddings of the same word in difference sentences(contexts)
+# Compare input embeddings and contextual embeddings of the same word in difference sentences(contexts)
 # 1. The input embedding to the first layer of the neural netword
-# 2. The output embedding from the last layer of the neural netword
+# 2. The contextual embedding from the last layer of the hidden layer
 
 import os
 from transformers import LlamaTokenizer, LlamaModel
@@ -66,7 +66,7 @@ def get_word_embedding(phrase, word):
 
     return {
         "input_embedding": input_embeddings[0, word_position],
-        "output_embedding": outputs.last_hidden_state[0, word_position, :]
+        "contextual_embedding": outputs.last_hidden_state[0, word_position, :]
     }
 
 
@@ -82,10 +82,10 @@ for i, example in enumerate(examples, 1):
 
     # Compare the embeddings
     input_result = compare_embedding(embeddings[0]["input_embedding"], embeddings[1]["input_embedding"])
-    output_result = compare_embedding(embeddings[0]["output_embedding"], embeddings[1]["output_embedding"])
+    output_result = compare_embedding(embeddings[0]["contextual_embedding"], embeddings[1]["contextual_embedding"])
 
     # Print results
     print(f"Input embedding: Are the embeddings exactly the same? {input_result['are_equal']}")
     print(f"Input embedding: Cosine similarity between embeddings: {input_result['similarity']:.4f}")
-    print(f"Output embedding: Are the embeddings exactly the same? {output_result['are_equal']}")
-    print(f"Output embedding: Cosine similarity between embeddings: {output_result['similarity']:.4f}")
+    print(f"Contextual embedding: Are the embeddings exactly the same? {output_result['are_equal']}")
+    print(f"Contextual embedding: Cosine similarity between embeddings: {output_result['similarity']:.4f}")
