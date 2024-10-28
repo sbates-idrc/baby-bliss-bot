@@ -4,8 +4,7 @@
 
 import os
 from transformers import LlamaTokenizer, LlamaModel
-import torch
-from utility_funcs import compare_embedding
+from utility_funcs import compare_embedding, get_word_embedding_in_phrase
 
 # The local directory with the model and the tokenizer
 model_dir = os.path.expanduser("~") + "/Development/LLMs/Llama-2-7b-hf"
@@ -42,34 +41,6 @@ examples = [
 tokenizer = LlamaTokenizer.from_pretrained(model_dir)
 model = LlamaModel.from_pretrained(model_dir)
 
-
-# Function to get embeddings for a specific word in a phrase
-def get_word_embedding(phrase, word):
-    # Tokenize the phrase
-    inputs = tokenizer(phrase, return_tensors="pt")
-
-    # Get the token ID for the target word
-    word_token_id = tokenizer.encode(word, add_special_tokens=False)[0]
-    print(f"Token ID for '{word}' in phrase '{phrase}': {word_token_id}")
-
-    # Find the position of the word in the tokenized input
-    word_position = (inputs.input_ids == word_token_id).nonzero()[0, 1]
-    print(f"Word position for '{word} in phrase '{phrase}': {word_position}")
-
-    # Get the model's output
-    with torch.no_grad():
-        outputs = model(**inputs)
-
-    # Extract the input embeddings of the phrase
-    input_embeddings = model.embed_tokens(inputs['input_ids'])
-    print(f"inputs['input_ids']: {inputs['input_ids']}")
-
-    return {
-        "input_embedding": input_embeddings[0, word_position],
-        "contextual_embedding": outputs.last_hidden_state[0, word_position, :]
-    }
-
-
 for i, example in enumerate(examples, 1):
     print(f"\nExample {i}: Word '{example['word']}'")
     print("-" * 50)
@@ -78,7 +49,7 @@ for i, example in enumerate(examples, 1):
     print(f"Phrase 2: '{example['phrases'][1]}'")
 
     # Get embeddings for the word in both phrases
-    embeddings = [get_word_embedding(phrase, example['word']) for phrase in example['phrases']]
+    embeddings = [get_word_embedding_in_phrase(model, tokenizer, phrase, example['word']) for phrase in example['phrases']]
 
     # Compare the embeddings
     input_result = compare_embedding(embeddings[0]["input_embedding"], embeddings[1]["input_embedding"])

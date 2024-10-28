@@ -26,6 +26,32 @@ def get_contextual_embedding(model, tokenizer, phrase):
     return outputs.hidden_states[-1].squeeze(0)
 
 
+# Function to get embeddings for a specific word in a phrase
+def get_word_embedding_in_phrase(model, tokenizer, phrase, word):
+    # Tokenize the phrase
+    inputs = tokenizer(phrase, return_tensors="pt")
+
+    # Get the token ID for the target word
+    word_token_id = tokenizer.encode(f" {word}", add_special_tokens=False)[0]
+    print(f"Token ID for '{word}' in phrase '{phrase}': {word_token_id}")
+
+    # Find the position of the word in the tokenized input
+    word_position = (inputs.input_ids == word_token_id).nonzero()[0, 1]
+    print(f"Word position for '{word} in phrase '{phrase}': {word_position}")
+
+    # Get the model's output
+    with torch.no_grad():
+        outputs = model(**inputs, output_hidden_states=True)
+
+    # Extract the input embeddings of the phrase
+    input_embeddings = model.get_input_embeddings()(inputs['input_ids'])
+
+    return {
+        "input_embedding": input_embeddings[0, word_position],
+        "contextual_embedding": outputs.hidden_states[-1][0, word_position, :]
+    }
+
+
 # Loop through the given glosses and return the first gloss that can be converted into
 # a single token, along with its input and output embeddings. If none of the glosses
 # can be converted to a single token, return (None, None, None)
