@@ -869,8 +869,7 @@
     "beautiful",
     "attractive",
     "good-looking",
-    "handsome",
-    "pretty"
+    "handsome"
   ],
   "12646": [
     "beaver"
@@ -1125,8 +1124,7 @@
     "both"
   ],
   "12880": [
-    "bottle",
-    "flask"
+    "bottle"
   ],
   "12881": [
     "bottom",
@@ -1312,8 +1310,7 @@
   "13093": [
     "business",
     "economy",
-    "commerce",
-    "trade"
+    "commerce"
   ],
   "13094": [
     "but",
@@ -1400,8 +1397,7 @@
     "be able"
   ],
   "13115": [
-    "cylinder",
-    "can"
+    "cylinder"
   ],
   "13116": [
     "Canada"
@@ -1439,8 +1435,7 @@
   ],
   "13125": [
     "carry",
-    "move",
-    "transport"
+    "move"
   ],
   "13126": [
     "carrycot",
@@ -1991,8 +1986,7 @@
     "creative"
   ],
   "13609": [
-    "creature",
-    "being"
+    "creature"
   ],
   "13610": [
     "crescent"
@@ -2216,7 +2210,6 @@
   ],
   "13675": [
     "different",
-    "other",
     "difference"
   ],
   "13676": [
@@ -2252,8 +2245,7 @@
     "impairment"
   ],
   "13685": [
-    "disc",
-    "disk"
+    "disc"
   ],
   "13686": [
     "disco"
@@ -2604,12 +2596,10 @@
   ],
   "13948": [
     "appreciate",
-    "value",
     "treasure"
   ],
   "13949": [
-    "evaluation",
-    "value"
+    "evaluation"
   ],
   "13950": [
     "evening"
@@ -2919,8 +2909,7 @@
     "ignitable"
   ],
   "14196": [
-    "flashlight",
-    "lantern"
+    "flashlight"
   ],
   "14197": [
     "flat"
@@ -2995,8 +2984,7 @@
     "soccer"
   ],
   "14381": [
-    "for",
-    "instead"
+    "for"
   ],
   "14382": [
     "for",
@@ -3004,7 +2992,6 @@
   ],
   "14383": [
     "forced",
-    "compelled",
     "obliged"
   ],
   "14384": [
@@ -3523,7 +3510,6 @@
   ],
   "14682": [
     "hat",
-    "cap",
     "hood"
   ],
   "14683": [
@@ -3954,7 +3940,6 @@
   ],
   "14961": [
     "apparent",
-    "apparently",
     "clear",
     "clearly",
     "evident(ly)",
@@ -4089,8 +4074,7 @@
     "know"
   ],
   "15162": [
-    "knowledge",
-    "class"
+    "knowledge"
   ],
   "15163": [
     "koala"
@@ -4205,8 +4189,7 @@
     "leopard"
   ],
   "15195": [
-    "fewer",
-    "less"
+    "fewer"
   ],
   "15196": [
     "let",
@@ -4407,8 +4390,7 @@
   ],
   "15410": [
     "make",
-    "manufacture",
-    "produce"
+    "manufacture"
   ],
   "15411": [
     "make-believe",
@@ -4417,7 +4399,6 @@
   ],
   "15412": [
     "maker",
-    "manufacturer",
     "producer"
   ],
   "15413": [
@@ -4485,8 +4466,7 @@
   ],
   "15432": [
     "mathematics",
-    "arithmetic",
-    "math"
+    "arithmetic"
   ],
   "15433": [
     "maturation"
@@ -4516,8 +4496,7 @@
   ],
   "15441": [
     "meaning",
-    "sense",
-    "significance"
+    "sense"
   ],
   "15442": [
     "measure"
@@ -4600,8 +4579,7 @@
     "microwave oven"
   ],
   "15464": [
-    "middle",
-    "centre"
+    "middle"
   ],
   "15465": [
     "midsummer"
@@ -4638,7 +4616,6 @@
   ],
   "15474": [
     "minus",
-    "no",
     "without"
   ],
   "15475": [
@@ -5047,8 +5024,7 @@
     "observe"
   ],
   "15909": [
-    "ocean",
-    "sea"
+    "ocean"
   ],
   "15910": [
     "October"
@@ -5216,8 +5192,7 @@
   ],
   "15955": [
     "painful",
-    "painfully",
-    "sore"
+    "painfully"
   ],
   "15956": [
     "paint",
@@ -5409,8 +5384,7 @@
   ],
   "16169": [
     "photograph",
-    "photo",
-    "pic"
+    "photo"
   ],
   "16170": [
     "disabled",
@@ -5488,7 +5462,6 @@
     "pita"
   ],
   "16191": [
-    "pitcher",
     "jug",
     "kettle",
     "pot"
