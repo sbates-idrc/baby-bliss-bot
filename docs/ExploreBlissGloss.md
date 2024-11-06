@@ -1,8 +1,9 @@
-# Bliss Dictionary Exploration
+# Bliss Gloss Exploration
 
 The English Bliss dictionary provides information about glosses, composing Bliss characters, and explanations
 for each Bliss symbol, describing the meaning of each symbol. This exploration investigates whether a language
-model’s existing English knowledge can be leveraged to help it understand Bliss symbols.
+model’s existing English knowledge can be leveraged to help it understand Bliss symbols by using the Bliss
+gloss information.
 
 ## Understanding Embeddings
 
@@ -43,6 +44,14 @@ These experiments reveal several insights:
    - We further evaluated contextual embedding similarity when synonyms are used interchangeably in the same sentence.
    [This report](../jobs/bliss-gloss/data/contextual_similarity_synonyms_in_same_sentences.txt) demonstrates that
    similarity scores are context-dependent, with some low-similarity synonyms showing high similarity in specific contexts.
+
+6. **Experiment with Attention-Weighted Embeddings for Multi-Token Glosses**:
+   - In this experiment, attention-weighted embeddings are used to create a single embedding for glosses composed
+   of multiple tokens. [This script](../jobs/bliss-gloss/weighted_embedding_for_multi_token_gloss.py) calculates token importance scores based on attention weights for each token in the gloss, then uses these scores to generate weighted
+   input and output embeddings. These embeddings are assigned to a new token representing the Bliss symbol.
+   - The evaluation process compares prediction probabilities for the original gloss and the newly generated Bliss
+   token within the same prefix context. However, results indicate this method may be suboptimal, as there is a big gap
+   in prediction ranks between the Bliss token and the first token of the original gloss.
 
 ## Cleaning Bliss Gloss
 
