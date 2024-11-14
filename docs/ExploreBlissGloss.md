@@ -5,6 +5,20 @@ for each Bliss symbol, describing the meaning of each symbol. This exploration i
 model’s existing English knowledge can be leveraged to help it understand Bliss symbols by using the Bliss
 gloss information.
 
+These exploration is performed with [Llama 3.2 8B Instruct model](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct).
+
+## Setup the Environment
+
+1. Download [Llama 3.2 8B Instruct model](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct) to a local
+directory;
+2. Edit the script to be run by adjusting the `model_dir` variable to point to the local directory where the
+model sits;
+3. Install the extra python dependencies by running these commands in the project home directory:
+```
+cd jobs/bliss-gloss 
+pip install -r requirements.txt
+```
+
 ## Understanding Embeddings
 
 The exploration begins with experiments involving three types of embeddings: input, output, and contextual
