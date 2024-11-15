@@ -7,14 +7,14 @@
 # that have one of these two words, replace them with the new Bliss tokens, then compare
 # the input and output embedding of sentences before and after the replacement.
 
-# Usage: python compare_new_token_usage.py
+# Usage: python compare_new_token_effects.py
 
 import os
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 import torch.nn.functional as F
 
-# Load the LLaMA 2 7B model and tokenizer
+# Load the LLaMA model and tokenizer
 model_dir = os.path.expanduser("~") + "/Development/LLMs/Meta-Llama-3.1-8B"
 tokenizer = AutoTokenizer.from_pretrained(model_dir)
 model = AutoModelForCausalLM.from_pretrained(model_dir)
